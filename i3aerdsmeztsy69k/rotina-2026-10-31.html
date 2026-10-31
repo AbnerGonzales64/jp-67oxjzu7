@@ -1,0 +1,65 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>Rotina · sáb 31/10/2026</title><style>
+:root{--accent:#2a6df5;--bg:#f7f7f4;--card:#fff;--border:#ddd;--text:#1d2430;--muted:#667;--good:#1f8a5a;--bad:#c0392b;--warn:#b7791f}
+body{background:var(--bg);color:var(--text);font:18px/1.5 system-ui,sans-serif;margin:0 auto;padding:14px;max-width:720px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin:12px 0}
+h1{font-size:21px;margin:4px 0}h2{font-size:18px;color:var(--accent);margin:0 0 6px}.hint{color:var(--muted);font-size:15px}
+button{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:16px;margin:6px 4px 0 0;min-height:44px}
+button.sec{background:#e8ecf5;color:var(--text)}textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;font-size:17px;padding:8px;min-height:110px}
+audio{width:100%;margin:6px 0}.cnt{font-weight:700}.ok{color:var(--good)}.bad{color:var(--bad);text-decoration:line-through}.miss{color:var(--warn);font-weight:700}
+.row{display:flex;gap:10px;align-items:center;margin:8px 0;font-size:17px}.row input{width:24px;height:24px}.locked{opacity:.5}.full{border-left:3px solid var(--accent);padding-left:8px;margin-top:8px}
+</style></head><body>
+<h1>Rotina · sáb 31/10/2026</h1>
+<div class="card"><p style="margin:0"><b>Novo foco: memorizar.</b> Cada item: o áudio toca <b>7 vezes</b> (ou <b>1 vez</b> se ontem você passou de 90% na escrita); depois abre a caixa para você <b>escrever de memória</b> e conferir. As perguntas só aparecem no fim, e só sobre o que você memorizou hoje. Sem pressa: formação antes de prazo.</p>
+<p class="hint" style="margin:8px 0 0">Mínimo: 15 min. O tempo que sobrar pode ir para o sermão e a igreja.</p></div>
+
+<div id="items"></div>
+<div class="card" id="perg"></div>
+<div class="card"><h2>Fechar o dia</h2>
+<label class="row"><input type="checkbox" data-k="min15"> Fiz pelo menos 15 min hoje</label>
+<button onclick="copiar()">Copiar resultado</button> <button class="sec" onclick="enviar()">Enviar resultado por e-mail</button>
+<p id="msg" class="hint"></p></div>
+<script>
+const DAY="sáb 31/10/2026",KEY="rotina-2026-10-31-v2",ITEMS=[{"id": "q01b1", "reps": 7, "grupo": "Concílio · pergunta 0.1 (semana 1 do estudo)", "titulo": "Bloco 1 · A pergunta", "texto": "Conte-nos como você se converteu, conte-nos como você se converteu.", "extra": "", "audio": "audio-rotina/1f6d519fddf81c36.mp3"}, {"id": "q01b2", "reps": 7, "grupo": "Concílio · pergunta 0.1 (semana 1 do estudo)", "titulo": "Bloco 2 · A resposta", "texto": "Eu cresci na igreja, aos doze me afastei, voltei aos dezoito, depois de um acampamento, mas o evangelho ainda não compreendia. Servi por motivo errado e da igreja saí; quando voltei, abri minhas dúvidas com amigos, que me ajudaram a estudar a Palavra.", "extra": "", "audio": "audio-rotina/827d3d7d40fced8e.mp3"}, {"id": "q01b3", "reps": 7, "grupo": "Concílio · pergunta 0.1 (semana 1 do estudo)", "titulo": "Bloco 3 · A resposta", "texto": "Ali o Senhor abriu o meu coração, como fez com Lídia, pra confiar só em Cristo. Eu estava morto nos meus delitos, e Deus me deu vida. Batizado na Bereana, pelo Pastor Luiz Gonzaga, por volta de dois mil e treze, com uns dezenove anos, já crente. Depois cresceu a firmeza, não uma nova conversão.", "extra": "", "audio": "audio-rotina/c7b01bea820c4950.mp3"}, {"id": "q01b4", "reps": 7, "grupo": "Concílio · pergunta 0.1 (semana 1 do estudo)", "titulo": "Bloco 4 · Atos dezesseis, catorze", "texto": "Atos dezesseis, catorze: \"Certa mulher, chamada Lídia, da cidade de Tiatira, vendedora de púrpura, temente a Deus, nos escutava; o Senhor lhe abriu o coração para atender às coisas que Paulo dizia.\"", "extra": "", "audio": "audio-rotina/020602060b7fd4de.mp3"}, {"id": "q01b5", "reps": 7, "grupo": "Concílio · pergunta 0.1 (semana 1 do estudo)", "titulo": "Bloco 5 · Efésios dois, um", "texto": "Efésios dois, um: \"Ele vos deu vida, estando vós mortos nos vossos delitos e pecados.\"", "extra": "", "audio": "audio-rotina/7865cfb9b7a37b27.mp3"}, {"id": "q01b6", "reps": 7, "grupo": "Concílio · pergunta 0.1 (semana 1 do estudo)", "titulo": "Bloco 6 · Efésios dois, oito e nove", "texto": "Efésios dois, oito e nove: \"Porque pela graça sois salvos, mediante a fé; e isto não vem de vós; é dom de Deus; não de obras, para que ninguém se glorie.\"", "extra": "", "audio": "audio-rotina/c6594351f2c6b28a.mp3"}, {"id": "conc", "reps": 7, "grupo": "", "titulo": "Concílio · Bibliologia · CFB 1689, 1.1 (bloco 01)", "texto": "A Sagrada Escritura é a única regra suficiente, certa e infalível de conhecimento para a salvação, de fé e de obediência. A luz da natureza, e as obras da criação e da providência, manifestam a bondade, a sabedoria e o poder de Deus, de tal modo que os homens ficam inescusáveis; contudo não são suficientes para dar conhecimento de Deus e de sua vontade que é necessário para a salvação. Por isso, em diversos tempos e por diferentes modos, o Senhor foi servido revelar-se a si mesmo e declarar sua vontade à sua igreja.", "extra": "", "audio": "audio-rotina/97d75d747985b6e1.mp3"}, {"id": "en", "reps": 7, "grupo": "", "titulo": "Inglês · 5 termos + frase da CFB 1.1", "texto": "Scripture, inspiration, inerrancy, sufficiency, canon. Scripture is the only sufficient, certain and infallible rule of all saving knowledge, faith and obedience.", "extra": "", "audio": "audio-rotina/3da480494d822453.mp3"}, {"id": "gr", "reps": 7, "grupo": "", "titulo": "Grego koiné · alfabeto α–ω (nomes)", "texto": "alfa, beta, gama, delta, épsilon, zeta, eta, teta, iota, capa, lambda, mi, ni, csi, ômicron, pi, rô, sigma, tau, ípsilon, fi, qui, psi, ômega", "extra": "Α α · Β β · Γ γ · Δ δ · Ε ε · Ζ ζ · Η η · Θ θ · Ι ι · Κ κ · Λ λ · Μ μ · Ν ν · Ξ ξ · Ο ο · Π π · Ρ ρ · Σ σ ς · Τ τ · Υ υ · Φ φ · Χ χ · Ψ ψ · Ω ω", "audio": "audio-rotina/08b70bff20af3ba8.mp3"}, {"id": "fin", "reps": 7, "grupo": "", "titulo": "Finanças · princípio 1 + Sl 24.1 e 1Co 4.2 (ARA)", "texto": "Tudo é do Senhor; eu sou administrador e presto contas. Do Senhor é a terra e a sua plenitude, o mundo e aqueles que nele habitam. Ora, além disso, o que se requer dos despenseiros é que cada um deles seja encontrado fiel.", "extra": "", "audio": "audio-rotina/d5b04cf835fe815c.mp3"}, {"id": "verse", "reps": 7, "grupo": "", "titulo": "Versículo · 2 Pedro 1.20-21 (ARA)", "texto": "sabendo, primeiramente, isto: que nenhuma profecia da Escritura provém de particular elucidação; porque nunca jamais qualquer profecia foi dada por vontade humana; entretanto, homens santos falaram da parte de Deus, movidos pelo Espírito Santo.", "extra": "", "audio": "audio-rotina/1b1acd7b69edb8c4.mp3"}],PERG=[["Pelo Ef 2.1 de hoje: em que estado Deus nos encontrou, e o que ele fez? Que frase do seu testemunho diz o mesmo?", "Estando vós mortos nos vossos delitos e pecados, ele vos deu vida. No testemunho: “Eu estava morto nos meus delitos, e Deus me deu vida.”"], ["Pela CFB 1.1 de hoje: a Escritura é a única regra de quê? E o que a luz da natureza manifesta de Deus?", "Única regra suficiente, certa e infalível de conhecimento para a salvação, de fé e de obediência. A luz da natureza e as obras da criação e da providência manifestam a bondade, a sabedoria e o poder de Deus (mas não bastam para a salvação)."]],REVN=0;
+let S=JSON.parse(localStorage.getItem(KEY)||"{}");S.n=S.n||{};S.w=S.w||{};S.p=S.p||{};S.c=S.c||{};S.pct=S.pct||{};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9α-ω\s]/g," ").split(/\s+/).filter(Boolean);
+function corrige(ref,got){const a=norm(ref),b=norm(got),m=a.length,n=b.length,L=[...Array(m+1)].map(()=>new Array(n+1).fill(0));
+ for(let i=m-1;i>=0;i--)for(let j=n-1;j>=0;j--)L[i][j]=a[i]===b[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+ let i=0,j=0,h=[];while(i<m||j<n){if(i<m&&j<n&&a[i]===b[j]){h.push('<span class="ok">'+a[i]+'</span>');i++;j++;}else if(j<n&&(i>=m||L[i][j+1]>=L[i+1][j])){h.push('<span class="bad">'+esc(b[j])+'</span>');j++;}else{h.push('<span class="miss">['+a[i]+']</span>');i++;}}
+ return [m?Math.round(100*L[0][0]/m):0,h.join(" ")];}
+const R=id=>(ITEMS.find(x=>x.id===id)||{}).reps||7;
+function done(id){return (S.n[id]||0)>=R(id)&&S.pct[id]!=null;}
+function itemHTML(it,k){const r=it.reps||7,n=S.n[it.id]||0,open=n>=r,g=it.grupo&&(k===0||ITEMS[k-1].grupo!==it.grupo)?`<h2 style="margin-top:18px">${esc(it.grupo)}</h2>`:"";
+ return g+`<div class="card" id="c-${it.id}"><h2>${esc(it.titulo)}</h2>${it.extra?`<p>${esc(it.extra)}</p>`:""}
+ <audio id="a-${it.id}" controls preload="metadata" playsinline src="${it.audio}"></audio>
+ <div class="cnt" id="n-${it.id}">${open?"Pronto: "+r+" de "+r+" ✓":(r>1?"Toque play: o áudio repete sozinho · "+n+"/"+r:"Toque play: 1× só (passou de 90% ontem) · "+n+"/1")}</div>
+ <details><summary class="hint">Ver o texto (ler junto)</summary><p class="full">${esc(it.texto)}</p></details>
+ <div id="w-${it.id}" ${open?"":'class="locked"'}><p class="hint">${open?"Agora escreva de memória, sem olhar:":(r>1?"A caixa abre depois das "+r+" vezes.":"A caixa abre depois de 1 vez.")}</p>
+ <textarea id="t-${it.id}" ${open?"":"disabled"} oninput="S.w['${it.id}']=this.value;save()">${esc(S.w[it.id]||"")}</textarea>
+ <button ${open?"":"disabled"} onclick="conferir('${it.id}')">Conferir com o texto completo</button><div id="r-${it.id}"></div></div></div>`;}
+function conferir(id){const it=ITEMS.find(x=>x.id===id),[p,h]=corrige(it.texto,S.w[id]||"");S.pct[id]=p;save();
+ document.getElementById("r-"+id).innerHTML=`<p><b>${p}%</b> das palavras do texto completo${p>90?' · amanhã este áudio toca só 1×':' · amanhã 7×'}. <span class="ok">verde</span> certo · <span class="miss">[amarelo]</span> faltou · <span class="bad">vermelho</span> sobrou/errado</p><p>${h}</p><p class="full"><b>Texto completo:</b> ${esc(it.texto)}</p>`;perg();}
+function liga(it){const a=document.getElementById("a-"+it.id),lb=document.getElementById("n-"+it.id);
+ a.addEventListener("play",()=>document.querySelectorAll("audio").forEach(o=>{if(o!==a)o.pause()}));
+ a.addEventListener("ended",()=>{const r=it.reps||7;S.n[it.id]=Math.min(r,(S.n[it.id]||0)+1);save();const n=S.n[it.id];
+  if(n<r){lb.textContent="Tocando de novo · "+n+"/"+r;a.currentTime=0;a.play();}else{render();document.getElementById("t-"+it.id).focus();}});}
+function render(){document.getElementById("items").innerHTML=ITEMS.map(itemHTML).join("");ITEMS.forEach(liga);
+ ITEMS.forEach(it=>{if(S.pct[it.id]!=null&&(S.n[it.id]||0)>=(it.reps||7))conferir(it.id)});perg();}
+function perg(){const el=document.getElementById("perg"),all=ITEMS.every(x=>done(x.id));
+ if(!all){el.innerHTML=`<h2>Perguntas do dia</h2><p class="hint">Aparecem quando todos os itens estiverem feitos (áudio + escrita conferida). Feitos: ${ITEMS.filter(x=>done(x.id)).length} de ${ITEMS.length}.</p>`;return;}
+ el.innerHTML=`<h2>Perguntas do dia (só sobre o que você memorizou hoje)</h2>`+PERG.map(([q,r],i)=>`<p><b>${i+1}.</b> ${esc(q)}</p><textarea oninput="S.p[${i}]=this.value;save()">${esc(S.p[i]||"")}</textarea><details><summary class="hint">Ver resposta</summary><p class="full">${esc(r)}</p></details>`).join("");}
+document.querySelectorAll("input[data-k]").forEach(c=>{c.checked=!!S.c[c.dataset.k];c.onchange=()=>{S.c[c.dataset.k]=c.checked;save()}});
+function resumo(){const L=["Resultado rotina 2026-10-31 ("+DAY+")",""];
+ ITEMS.forEach(it=>L.push("ITEM "+it.id+": "+(S.pct[it.id]!=null?S.pct[it.id]+"%":"NA")));L.push("");
+ if(REVN)L.push("Revisão: "+Object.keys(S.c).filter(k=>k.startsWith("rev")&&S.c[k]).length+" de "+REVN);
+ ITEMS.forEach(it=>L.push("- "+it.titulo+": "+(S.n[it.id]||0)+"/"+(it.reps||7)+" · escrita "+(S.pct[it.id]!=null?S.pct[it.id]+"%":"não feita")+"\n  ESCREVI: "+(S.w[it.id]||"(vazio)")));
+ L.push("");PERG.forEach(([q],i)=>L.push("PERGUNTA "+(i+1)+": "+q+"\n  R: "+(S.p[i]||"(vazio)")));
+ L.push("","Mínimo 15 min: "+(S.c.min15?"sim":"não"));return L.join("\n");}
+function copiar(){const t=resumo();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>msg("Copiado ✓"),()=>{prompt("Copie:",t)});}
+function msg(s){document.getElementById("msg").textContent=s}
+function enviar(){let b=resumo();if(b.length>1800)b=b.slice(0,1800)+"\n[...] (use Copiar resultado para o texto inteiro)";
+ location.href="mailto:abnergonzales64@gmail.com?subject="+encodeURIComponent("Resultado rotina 2026-10-31")+"&body="+encodeURIComponent(b);}
+render();
+</script></body></html>
