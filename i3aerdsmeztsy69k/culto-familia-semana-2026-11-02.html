@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta name="robots" content="noindex">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="dark">
+<title>Culto da família · semana 02/11</title>
+<style>
+:root{--bg:#0f1218;--card:#1a2030;--card2:#232b3d;--text:#e8eef8;--muted:#9aa8c0;--accent:#5b9cff;--good:#3ecf8e;--bad:#ff6b7a;--warn:#f5c542;--border:#2e3850;--tap:#2a6df5;--tap-done:#1f8a5a}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:18px;line-height:1.45}
+body{min-height:100dvh;padding-bottom:100px}
+header{position:sticky;top:0;z-index:20;background:rgba(15,18,24,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:12px 16px 10px}
+header h1{margin:0;font-size:1.05rem;font-weight:700}
+header .meta{color:var(--muted);font-size:.82rem;margin-top:2px}
+.progress-bar{height:6px;background:var(--card2);border-radius:99px;margin-top:10px;overflow:hidden}
+.progress-bar>i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--good));transition:width .25s}
+.days{display:flex;gap:6px;margin-top:10px;overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:2px}
+.day-btn{flex:1;min-width:48px;appearance:none;border:1px solid var(--border);background:var(--card2);color:var(--muted);border-radius:12px;padding:8px 6px;font-size:.78rem;font-weight:700;cursor:pointer;min-height:44px}
+.day-btn strong{display:block;font-size:.95rem;color:var(--text)}
+.day-btn.active{background:var(--tap);border-color:var(--tap);color:#fff}
+.day-btn.active strong{color:#fff}
+.day-btn.done-day{border-color:var(--good)}
+main{padding:16px;max-width:640px;margin:0 auto}
+.step{display:none}.step.active{display:block;animation:fade .2s ease}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.badge{display:inline-block;background:var(--card2);color:var(--accent);font-size:.75rem;font-weight:700;padding:4px 10px;border-radius:99px}
+h2{margin:10px 0 8px;font-size:1.35rem}
+.muted{color:var(--muted)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:14px 16px;margin:12px 0}
+.card h3{margin:0 0 8px;font-size:1rem;color:var(--accent)}
+.verse{background:var(--card2);border-left:4px solid var(--accent);padding:12px 14px;border-radius:0 12px 12px 0;margin:10px 0;font-size:1.05rem}
+.chant{font-size:1.15rem;font-weight:600;letter-spacing:.02em;line-height:1.65;text-align:center;padding:8px}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;margin:12px 0}
+button{appearance:none;border:none;border-radius:14px;padding:14px 18px;font-size:1.05rem;font-weight:700;cursor:pointer;color:#fff;background:var(--tap);min-height:52px;flex:1}
+button.secondary{background:var(--card2);color:var(--text);border:1px solid var(--border)}
+button.good{background:var(--tap-done)}
+button:disabled{opacity:.45;cursor:not-allowed}
+a.link-btn{display:block;text-align:center;text-decoration:none;border-radius:14px;padding:14px 18px;font-size:1.05rem;font-weight:700;color:#fff;background:#c4302b;min-height:52px;line-height:24px;margin:10px 0}
+.counter-wrap{text-align:center;margin:16px 0}
+.counter-btn{width:100%;max-width:280px;margin:0 auto;display:block;min-height:110px;border-radius:24px;font-size:1.35rem;background:linear-gradient(180deg,#3a7bff,#2458c9);box-shadow:0 8px 24px rgba(36,88,201,.35)}
+.counter-btn.done{background:linear-gradient(180deg,#2bb673,#1a7a4c)}
+.counter-num{font-size:2.8rem;display:block;line-height:1;margin-bottom:4px}
+.dots{display:flex;justify-content:center;gap:8px;margin:12px 0 4px}
+.dot{width:18px;height:18px;border-radius:50%;background:var(--card2);border:2px solid var(--border)}
+.dot.on{background:var(--good);border-color:var(--good)}
+.check{display:flex;align-items:flex-start;gap:12px;background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px;margin:10px 0;cursor:pointer;user-select:none}
+.check input{width:28px;height:28px;margin-top:2px;flex-shrink:0;accent-color:var(--good)}
+.check.done{border-color:var(--good);background:#163528}
+.nav{position:fixed;bottom:0;left:0;right:0;z-index:30;background:rgba(15,18,24,.97);border-top:1px solid var(--border);padding:10px 16px calc(10px + env(safe-area-inset-bottom));display:flex;gap:10px;max-width:640px;margin:0 auto}
+.nav button{flex:1}
+.hint{font-size:.88rem;color:var(--muted);margin:8px 0}
+.list-plain{padding-left:1.2em;margin:8px 0}
+.list-plain li{margin:4px 0}
+.toast{position:fixed;top:70px;left:50%;transform:translateX(-50%);background:var(--good);color:#052;font-weight:700;padding:10px 18px;border-radius:99px;z-index:50;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+footer.note{text-align:center;color:var(--muted);font-size:.75rem;padding:24px 16px 120px}
+.lyrics{white-space:pre-wrap;font-size:1.02rem;line-height:1.55;margin:0}
+.who{display:inline-block;background:rgba(91,156,255,.15);color:var(--accent);font-weight:700;padding:6px 12px;border-radius:99px;font-size:.9rem}
+.chunk-new{color:var(--warn);font-weight:800;background:rgba(245,197,66,.12);border-radius:6px;padding:0 4px}
+.chunk-old{color:var(--text);font-weight:600}
+</style>
+</head>
+<body>
+<header>
+  <h1>Culto da família · 02 a 07/11</h1>
+  <div class="meta">~14–16 min · Catecismo no centro · Salmos em ordem · Família Gonzales</div>
+  <div class="days" id="days"></div>
+  <div class="progress-bar"><i id="prog"></i></div>
+</header>
+<main id="main"></main>
+<nav class="nav">
+  <button type="button" class="secondary" id="btnBack">Voltar</button>
+  <button type="button" id="btnNext">Próximo</button>
+</nav>
+<div class="toast" id="toast">Copiado</div>
+<footer class="note">Offline · progresso salvo neste aparelho · Jornada Pastoral</footer>
+<script>
+/*MUSIC*/
+const MUS={};
+/*/MUSIC*/
+
+const STORAGE_KEY = "culto-familia-semana-2026-11-02-salmos-v1";
+
+const MILESTONES = [
+  {date:"2026-10-16", label:"sex 16/10", title:"Aniversário do Yosef"},
+  {date:"2026-10-17", label:"sáb 17/10", title:"1ª resposta completa do catecismo (Bethany)"},
+  {date:"2026-11-21", label:"~21/11", title:"6 semanas de culto doméstico"},
+  {date:"2026-12-22", label:"ter 22/12", title:"Aniversário da Bethany"},
+  {date:"2026-12-31", label:"dez/2026", title:"Fim do trimestre (out–dez)"},
+  {date:"2027-03-31", label:"mar/2027", title:"Fim do trimestre (jan–mar)"},
+  {date:"2027-04-15", label:"abr/2027", title:"Aniversário da Anya"}
+];
+const MILESTONE_SEND = "Em cada marco: enviem fotos/vídeos do álbum; o tutor monta um vídeo-memória. Envie para abnergonzales64@gmail.com ou cole aqui no chat.";
+function CQ(){return dayInfo().catQ} function CA(){return dayInfo().catA} function CC(){return dayInfo().catChunks} function CS(){return dayInfo().catShort} function CN(){return dayInfo().catChunks.length}
+const VERSE_REF = "Salmo 34.8 (ARA)";
+const VERSE_TEXT = "Oh! Provai e vede que o Senhor é bom; bem-aventurado o homem que nele se refugia.";
+
+const DAYS = [
+ {
+  "id": "seg",
+  "label": "Seg",
+  "date": "02/11",
+  "reading": "Salmo 30 (ARA)",
+  "bibleBook": "Salmos",
+  "bibleGroup": "Livros de Sabedoria",
+  "readingText": "1 Eu te exaltarei, ó Senhor, porque tu me livraste e não permitiste que os meus inimigos se regozijassem contra mim. 2 Senhor, meu Deus, clamei a ti por socorro, e tu me saraste. 3 Senhor, da cova fizeste subir a minha alma; preservaste-me a vida para que não descesse à sepultura. 4 Salmodiai ao Senhor, vós que sois seus santos, e dai graças ao seu santo nome. 5 Porque não passa de um momento a sua ira; o seu favor dura a vida inteira. Ao anoitecer, pode vir o choro, mas a alegria vem pela manhã. 6 Quanto a mim, dizia eu na minha prosperidade: jamais serei abalado. 7 Tu, Senhor, por teu favor fizeste permanecer forte a minha montanha; apenas voltaste o rosto, fiquei logo conturbado. 8 Por ti, Senhor, clamei, ao Senhor implorei. 9 Que proveito obterás no meu sangue, quando baixo à cova? Louvar-te-á, porventura, o pó? Declarará ele a tua verdade? 10 Ouve, Senhor, e tem compaixão de mim; sê tu, Senhor, o meu auxílio. 11 Converteste o meu pranto em folguedos; tiraste o meu pano de saco e me cingiste de alegria, 12 para que o meu espírito te cante louvores e não se cale. Senhor, Deus meu, graças te darei para sempre.",
+  "readingHint": "Leia em voz alta (~1.9 min). Texto ARA abaixo.",
+  "who": "Bethany",
+  "whoHint": "1–2 min: recita + explica com as próprias palavras",
+  "activity": null,
+  "catN": 2,
+  "catQ": "P.2 Qual é o fim principal do homem?",
+  "catA": "O fim principal do homem é glorificar a Deus, e deleitar-se nEle para sempre.",
+  "catChunks": [
+   "O fim principal do homem é glorificar a Deus,",
+   "e deleitar-se nEle para sempre."
+  ],
+  "catShort": "Glorificar a Deus e alegrar-se nele para sempre.",
+  "catRefs": "1Co 10.31; Sl 73.25-26",
+  "catTema": "O fim principal do homem",
+  "catLink": "Davi termina dizendo “graças te darei para sempre” (Sl 30.12): fomos feitos para glorificar a Deus e alegrar-nos nele.",
+  "hymnT": "A Deus demos glória (Fanny J. Crosby, “To God be the glory”)",
+  "hymnU": "https://www.youtube.com/results?search_query=A%20Deus%20demos%20gl%C3%B3ria%20hino",
+  "hymnL": "",
+  "hymnWhy": "Sl 30 é ação de graças; o hino é louvor por tudo o que Deus fez (P.2: glorificar a Deus).",
+  "songG": "Livros de Sabedoria",
+  "songU": "https://suno.com/song/22860dd7-f016-4155-b76b-27825164388a"
+ },
+ {
+  "id": "ter",
+  "label": "Ter",
+  "date": "03/11",
+  "reading": "Salmo 31.1-13 (parte 1) (ARA)",
+  "bibleBook": "Salmos",
+  "bibleGroup": "Livros de Sabedoria",
+  "readingText": "1 Em ti, Senhor, me refugio; não seja eu jamais envergonhado; livra-me por tua justiça. 2 Inclina-me os ouvidos, livra-me depressa; sê o meu castelo forte, cidadela fortíssima que me salve. 3 Porque tu és a minha rocha e a minha fortaleza; por causa do teu nome, tu me conduzirás e me guiarás. 4 Tirar-me-ás do laço que, às ocultas, me armaram, pois tu és a minha fortaleza. 5 Nas tuas mãos, entrego o meu espírito; tu me remiste, Senhor, Deus da verdade. 6 Aborreces os que adoram ídolos vãos; eu, porém, confio no Senhor. 7 Eu me alegrarei e regozijarei na tua benignidade, pois tens visto a minha aflição, conheceste as angústias de minha alma 8 e não me entregaste nas mãos do inimigo; firmaste os meus pés em lugar espaçoso. 9 Compadece-te de mim, Senhor, porque me sinto atribulado; de tristeza os meus olhos se consomem, e a minha alma e o meu corpo. 10 Gasta-se a minha vida na tristeza, e os meus anos, em gemidos; debilita-se a minha força, por causa da minha iniquidade, e os meus ossos se consomem. 11 Tornei-me opróbrio para todos os meus adversários, espanto para os meus vizinhos e horror para os meus conhecidos; os que me veem na rua fogem de mim. 12 Estou esquecido no coração deles, como morto; sou como vaso quebrado. 13 Pois tenho ouvido a murmuração de muitos, terror por todos os lados; conspirando contra mim, tramam tirar-me a vida.",
+  "readingHint": "Leia em voz alta (~2.2 min). Texto ARA abaixo.",
+  "who": "Anya",
+  "whoHint": "Recita com ajuda (pai ou mãe)",
+  "activity": null,
+  "catN": 8,
+  "catQ": "P.8 O que é Deus?",
+  "catA": "Deus é Espírito, Infinito, Eterno, e Imutável em Seu Ser, Sabedoria, Poder, Santidade, Justiça, Bondade e Verdade.",
+  "catChunks": [
+   "Deus é Espírito, Infinito, Eterno, e Imutável em Seu Ser, Sabedoria, Poder, Santidade, Justiça, Bondade e Verdade."
+  ],
+  "catShort": "Deus é Espírito, eterno e não muda.",
+  "catRefs": "Jo 4.24; Sl 147.5; 90.2; Tg 1.17; Ap 4.8; Sl 89.14; Êx 34.6-7; 1Tm 1.17",
+  "catTema": "Quem Deus é",
+  "catLink": "Davi chama o Senhor de “Deus da verdade” e “rocha” (Sl 31.2-5): o catecismo nos ensina quem Deus é.",
+  "hymnT": "Castelo Forte — Cantor Cristão 323 (Lutero, 1529; trad. J. Eduardo von Hafe, revisada)",
+  "hymnU": "https://www.youtube.com/watch?v=7bl2LSlrdaM",
+  "hymnL": "1. Castelo forte é nosso Deus,\nEspada e bom escudo;\nCom seu poder defende os seus\nEm todo transe agudo.\nCom fúria pertinaz,\nPersegue Satanás,\nCom artimanhas tais,\nE astúcias tão cruéis,\nQue iguais não há na terra.\n\n2. A nossa força nada faz,\nEstamos, sim, perdidos;\nMas nosso Deus socorro traz\nE somos protegidos.\nDefende-nos Jesus,\nO que venceu na cruz,\nSenhor dos altos céus;\nE, sendo o próprio Deus,\nTriunfa na batalha.\n\n3. Se nos quisessem devorar\nDemônios não contados,\nNão nos podiam assustar,\nNem somos derrotados.\nO grande acusador\nDos servos do Senhor\nJá condenado está;\nVencido cairá\nPor uma só palavra.\n\n4. Sim, que a palavra ficará,\nSabemos com certeza,\nE nada nos assustará,\nCom Cristo por defesa.\nSe temos de perder\nOs filhos, bens, mulher,\nEmbora a vida vá,\nPor nós Jesus está,\nE dar-nos-á seu Reino.",
+  "hymnWhy": "Davi ora “sê o meu castelo forte” (Sl 31.2); o hino “Castelo Forte” (baseado no Sl 46) canta o mesmo refúgio no Deus fiel (P.8).",
+  "songG": "Livros de Sabedoria",
+  "songU": "https://suno.com/song/22860dd7-f016-4155-b76b-27825164388a"
+ },
+ {
+  "id": "qua",
+  "label": "Qua",
+  "date": "04/11",
+  "reading": "Salmo 31.14-24 (parte 2) (ARA)",
+  "bibleBook": "Salmos",
+  "bibleGroup": "Livros de Sabedoria",
+  "readingText": "14 Quanto a mim, confio em ti, Senhor. Eu disse: tu és o meu Deus. 15 Nas tuas mãos, estão os meus dias; livra-me das mãos dos meus inimigos e dos meus perseguidores. 16 Faze resplandecer o teu rosto sobre o teu servo; salva-me por tua misericórdia. 17 Não seja eu envergonhado, Senhor, pois te invoquei; envergonhados sejam os perversos, emudecidos na morte. 18 Emudeçam os lábios mentirosos, que falam insolentemente contra o justo, com arrogância e desdém. 19 Como é grande a tua bondade, que reservaste aos que te temem, da qual usas, perante os filhos dos homens, para com os que em ti se refugiam! 20 No recôndito da tua presença, tu os esconderás das tramas dos homens, num esconderijo os ocultarás da contenda de línguas. 21 Bendito seja o Senhor, que engrandeceu a sua misericórdia para comigo, numa cidade sitiada! 22 Eu disse na minha pressa: estou excluído da tua presença. Não obstante, ouviste a minha súplice voz, quando clamei por teu socorro. 23 Amai o Senhor, vós todos os seus santos. O Senhor preserva os fiéis, mas retribui com largueza ao soberbo. 24 Sede fortes, e revigore-se o vosso coração, vós todos que esperais no Senhor.",
+  "readingHint": "Leia em voz alta (~1.9 min). Texto ARA abaixo.",
+  "who": "Bethany",
+  "whoHint": "1–2 min: recita + explica com as próprias palavras",
+  "activity": null,
+  "catN": 15,
+  "catQ": "P.15 Quais são as obras da providência de Deus?",
+  "catA": "As obras da providência de Deus são a Sua santíssima, sábia e poderosa preservação e governo de todas as Suas criaturas, e de todas as suas ações.",
+  "catChunks": [
+   "As obras da providência de Deus são a Sua santíssima,",
+   "sábia e poderosa preservação e governo de todas as Suas criaturas,",
+   "e de todas as suas ações."
+  ],
+  "catShort": "Deus cuida de tudo e governa tudo.",
+  "catRefs": "Ne 9.6; Cl 1.17; Hb 1.3; Sl 103.19; Mt 10.29-30",
+  "catTema": "A providência",
+  "catLink": "“Nas tuas mãos, estão os meus dias” (Sl 31.15): Deus guarda e governa tudo, inclusive a nossa vida.",
+  "hymnT": "Deus cuidará de ti — Cantor Cristão 344 (Civilla D. Martin, 1904; trad. Salomão L. Ginsburg, 1867–1927)",
+  "hymnU": "https://www.youtube.com/watch?v=brpBdFwqyaY",
+  "hymnL": "1. Aflito e triste coração,\nDeus cuidará de ti;\nPor ti opera a sua mão,\nQue cuidará de ti.\nCoro:\nDeus cuidará de ti,\nEm cada dia proverá,\nSim, cuidará de ti,\nDeus cuidará de ti.\n\n2. Na dor cruel, na provação,\nDeus cuidará de ti;\nSocorro dá e salvação,\nPois cuidará de ti.\n(Coro)\n\n3. A tua fé Deus quer provar,\nMas cuidará de ti;\nO teu amor quer aumentar,\nE cuidará de ti.\n(Coro)\n\n4. Nos seus tesouros tudo tens,\nDeus cuidará de ti;\nTerrestres e celestes bens,\nE cuidará de ti.\n(Coro)\n\n5. O que é mister te pode dar\nQuem cuidará de ti;\nNos braços seus te sustentar,\nPois cuidará de ti.\n(Coro)",
+  "hymnWhy": "Sl 31.15 e P.15 (providência): Deus cuida de nós, o tema do hino.",
+  "songG": "Livros de Sabedoria",
+  "songU": "https://suno.com/song/22860dd7-f016-4155-b76b-27825164388a"
+ },
+ {
+  "id": "qui",
+  "label": "Qui",
+  "date": "05/11",
+  "reading": "Salmo 32 (ARA)",
+  "bibleBook": "Salmos",
+  "bibleGroup": "Livros de Sabedoria",
+  "readingText": "1 Bem-aventurado aquele cuja iniquidade é perdoada, cujo pecado é coberto. 2 Bem-aventurado o homem a quem o Senhor não atribui iniquidade e em cujo espírito não há dolo. 3 Enquanto calei os meus pecados, envelheceram os meus ossos pelos meus constantes gemidos todo o dia. 4 Porque a tua mão pesava dia e noite sobre mim, e o meu vigor se tornou em sequidão de estio. 5 Confessei-te o meu pecado e a minha iniquidade não mais ocultei. Disse: confessarei ao Senhor as minhas transgressões; e tu perdoaste a iniquidade do meu pecado. 6 Sendo assim, todo homem piedoso te fará súplicas em tempo de poder encontrar-te. Com efeito, quando transbordarem muitas águas, não o atingirão. 7 Tu és o meu esconderijo; tu me preservas da tribulação e me cercas de alegres cantos de livramento. 8 Instruir-te-ei e te ensinarei o caminho que deves seguir; e, sob as minhas vistas, te darei conselho. 9 Não sejais como o cavalo ou a mula, sem entendimento, os quais com freios e cabrestos são dominados; de outra sorte não te obedecem. 10 Muito sofrimento terá de curtir o ímpio, mas o que confia no Senhor, a misericórdia o assistirá. 11 Alegrai-vos no Senhor e regozijai-vos, ó justos; exultai, vós todos que sois retos de coração.",
+  "readingHint": "Leia em voz alta (~1.9 min). Texto ARA abaixo.",
+  "who": "Yosef",
+  "whoHint": "Recita com ajuda (pai ou mãe)",
+  "activity": null,
+  "catN": 37,
+  "catQ": "P.37 O que é justificação?",
+  "catA": "A justificação é um ato da livre graça de Deus, onde Ele perdoa todos os nossos pecados, e nos aceita como justos diante de Seus olhos somente pela justiça de Cristo imputada a nós, e recebida somente pela fé.",
+  "catChunks": [
+   "A justificação é um ato da livre graça de Deus,",
+   "onde Ele perdoa todos os nossos pecados,",
+   "e nos aceita como justos diante de Seus olhos somente pela justiça de Cristo imputada a nós,",
+   "e recebida somente pela fé."
+  ],
+  "catShort": "Deus perdoa e nos aceita por causa de Jesus.",
+  "catRefs": "Rm 3.24; Ef 1.7; 2Co 5.21; Rm 5.19; Fp 3.9; Gl 2.16",
+  "catTema": "A justificação",
+  "catLink": "“Bem-aventurado aquele cuja iniquidade é perdoada” (Sl 32.1); Paulo usa este Salmo para ensinar a justificação (Rm 4.6-8).",
+  "hymnT": "Rocha Eterna (Augustus M. Toplady, “Rock of Ages”)",
+  "hymnU": "https://www.youtube.com/results?search_query=Rocha%20Eterna%20hino",
+  "hymnL": "",
+  "hymnWhy": "Sl 32 fala do perdão do pecado; “Rocha Eterna” canta o perdão só pela obra de Cristo (P.37).",
+  "songG": "Livros de Sabedoria",
+  "songU": "https://suno.com/song/22860dd7-f016-4155-b76b-27825164388a"
+ },
+ {
+  "id": "sex",
+  "label": "Sex",
+  "date": "06/11",
+  "reading": "Salmo 33 (ARA)",
+  "bibleBook": "Salmos",
+  "bibleGroup": "Livros de Sabedoria",
+  "readingText": "1 Exultai, ó justos, no Senhor! Aos retos fica bem louvá-lo. 2 Celebrai o Senhor com harpa, louvai-o com cânticos no saltério de dez cordas. 3 Entoai-lhe novo cântico, tangei com arte e com júbilo. 4 Porque a palavra do Senhor é reta, e todo o seu proceder é fiel. 5 Ele ama a justiça e o direito; a terra está cheia da bondade do Senhor. 6 Os céus por sua palavra se fizeram, e, pelo sopro de sua boca, o exército deles. 7 Ele ajunta em montão as águas do mar; e em reservatório encerra as grandes vagas. 8 Tema ao Senhor toda a terra, temam-no todos os habitantes do mundo. 9 Pois ele falou, e tudo se fez; ele ordenou, e tudo passou a existir. 10 O Senhor frustra os desígnios das nações e anula os intentos dos povos. 11 O conselho do Senhor dura para sempre; os desígnios do seu coração, por todas as gerações. 12 Feliz a nação cujo Deus é o Senhor, e o povo que ele escolheu para sua herança. 13 O Senhor olha dos céus; vê todos os filhos dos homens; 14 do lugar de sua morada, observa todos os moradores da terra, 15 ele, que forma o coração de todos eles, que contempla todas as suas obras. 16 Não há rei que se salve com o poder dos seus exércitos; nem por sua muita força se livra o valente. 17 O cavalo não garante vitória; a despeito de sua grande força, a ninguém pode livrar. 18 Eis que os olhos do Senhor estão sobre os que o temem, sobre os que esperam na sua misericórdia, 19 para livrar-lhes a alma da morte, e, no tempo da fome, conservar-lhes a vida. 20 Nossa alma espera no Senhor, nosso auxílio e escudo. 21 Nele, o nosso coração se alegra, pois confiamos no seu santo nome. 22 Seja sobre nós, Senhor, a tua misericórdia, como de ti esperamos.",
+  "readingHint": "Leia em voz alta (~2.7 min). Texto ARA abaixo.",
+  "who": "Bethany",
+  "whoHint": "1–2 min: recita + explica com as próprias palavras",
+  "activity": null,
+  "catN": 13,
+  "catQ": "P.13 O que é a obra da criação?",
+  "catA": "A obra da criação consiste em todas as coisas que Deus fez a partir do nada, pela palavra do Seu poder, em seis dias consecutivos e normais, e tudo muito bom.",
+  "catChunks": [
+   "A obra da criação consiste em todas as coisas que Deus fez a partir do nada,",
+   "pela palavra do Seu poder, em seis dias consecutivos e normais, e tudo muito bom."
+  ],
+  "catShort": "Deus fez tudo do nada, pela sua palavra.",
+  "catRefs": "Gn 1.1; Hb 11.3; Êx 20.11; Gn 1.31",
+  "catTema": "A criação",
+  "catLink": "“Os céus por sua palavra se fizeram” (Sl 33.6): Deus criou tudo pela palavra do seu poder.",
+  "hymnT": "Grandioso és Tu (Carl Boberg, “O Store Gud”)",
+  "hymnU": "https://www.youtube.com/results?search_query=Grandioso%20%C3%A9s%20Tu%20hino",
+  "hymnL": "",
+  "hymnWhy": "Sl 33.6-9 e P.13 (criação): o hino louva o Criador pelas obras que vemos.",
+  "songG": "Livros de Sabedoria",
+  "songU": "https://suno.com/song/22860dd7-f016-4155-b76b-27825164388a"
+ },
+ {
+  "id": "sab",
+  "label": "Sáb",
+  "date": "07/11",
+  "reading": "Salmo 34 (ARA)",
+  "bibleBook": "Salmos",
+  "bibleGroup": "Livros de Sabedoria",
+  "readingText": "1 Bendirei o Senhor em todo o tempo, o seu louvor estará sempre nos meus lábios. 2 Gloriar-se-á no Senhor a minha alma; os humildes o ouvirão e se alegrarão. 3 Engrandecei o Senhor comigo, e todos, à uma, lhe exaltemos o nome. 4 Busquei o Senhor, e ele me acolheu; livrou-me de todos os meus temores. 5 Contemplai-o e sereis iluminados, e o vosso rosto jamais sofrerá vexame. 6 Clamou este aflito, e o Senhor o ouviu e o livrou de todas as suas tribulações. 7 O anjo do Senhor acampa-se ao redor dos que o temem e os livra. 8 Oh! Provai e vede que o Senhor é bom; bem-aventurado o homem que nele se refugia. 9 Temei o Senhor, vós os seus santos, pois nada falta aos que o temem. 10 Os leõezinhos sofrem necessidade e passam fome, porém aos que buscam o Senhor bem nenhum lhes faltará. 11 Vinde, filhos, e escutai-me; eu vos ensinarei o temor do Senhor. 12 Quem é o homem que ama a vida e quer longevidade para ver o bem? 13 Refreia a língua do mal e os lábios de falarem dolosamente. 14 Aparta-te do mal e pratica o que é bom; procura a paz e empenha-te por alcançá-la. 15 Os olhos do Senhor repousam sobre os justos, e os seus ouvidos estão abertos ao seu clamor. 16 O rosto do Senhor está contra os que praticam o mal, para lhes extirpar da terra a memória. 17 Clamam os justos, e o Senhor os escuta e os livra de todas as suas tribulações. 18 Perto está o Senhor dos que têm o coração quebrantado e salva os de espírito oprimido. 19 Muitas são as aflições do justo, mas o Senhor de todas o livra. 20 Preserva-lhe todos os ossos, nem um deles sequer será quebrado. 21 O infortúnio matará o ímpio, e os que odeiam o justo serão condenados. 22 O Senhor resgata a alma dos seus servos, e dos que nele confiam nenhum será condenado.",
+  "readingHint": "Leia em voz alta (~2.6 min). Texto ARA abaixo.",
+  "who": "Todos",
+  "whoHint": "Cada um apresenta (Bethany, Anya e Yosef)",
+  "activity": null,
+  "catN": 1,
+  "catQ": "P.1 Quem é o primeiro e melhor dos seres?",
+  "catA": "Deus é o primeiro e melhor dos seres.",
+  "catChunks": [
+   "Deus é o primeiro e melhor dos seres."
+  ],
+  "catShort": "Deus é o primeiro e o melhor de todos.",
+  "catRefs": "Is 44.6; Sl 8.1; 97.9",
+  "catTema": "Deus",
+  "catLink": "“Provai e vede que o Senhor é bom” (Sl 34.8): Deus é o primeiro e o melhor de todos.",
+  "hymnT": "Santo! Santo! Santo! (Reginald Heber, 1826; trad. João Gomes da Rocha, 1861–1947)",
+  "hymnU": "https://www.youtube.com/watch?v=7ZrbarQEME0",
+  "hymnL": "1. Santo! Santo! Santo! Deus onipotente!\nCantam, de manhã, nossas vozes com ardor.\nSanto! Santo! Santo! Justo e compassivo!\nÉs Deus triúno, excelso Criador!\n\n2. Santo! Santo! Santo! Todos os remidos,\nJuntos com os anjos, proclamam Teu louvor.\nAntes de formar-se o firmamento e a terra\nEras e sempre és, e hás de ser, Senhor!\n\n3. Santo! Santo! Santo! Nós, os pecadores,\nNão podemos ver Tua glória sem tremor.\nTu somente és santo, só Tu és perfeito,\nDeus soberano, imenso em Teu amor!\n\n4. Santo! Santo! Santo! Deus onipotente!\nTuas obras louvam Teu nome com fervor.\nSanto! Santo! Santo! Justo e compassivo!\nÉs Deus triúno, excelso Criador!",
+  "hymnWhy": "Sl 34.3 chama a engrandecer o Senhor; “Santo! Santo! Santo!” adora o Deus que é o primeiro e melhor dos seres (P.1).",
+  "songG": "Livros de Sabedoria",
+  "songU": "https://suno.com/song/22860dd7-f016-4155-b76b-27825164388a"
+ }
+];
+
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+
+function todayDayId(){
+  const d=new Date();
+  const map={1:"seg",2:"ter",3:"qua",4:"qui",5:"sex",6:"sab"};
+  return map[d.getDay()]||"seg";
+}
+
+function defaultDay(){return{step:0,checks:{},reps:{catecismo:0,verse:0}}}
+function defaultState(){
+  const days={}; for(const d of DAYS) days[d.id]=defaultDay();
+  return {day:todayDayId(), days};
+}
+function load(){try{return JSON.parse(localStorage.getItem(STORAGE_KEY)||"{}")||{}}catch(e){return{}}}
+let state=Object.assign(defaultState(), load());
+if(!state.days) state.days=defaultState().days;
+for(const d of DAYS){
+  if(!state.days[d.id]) state.days[d.id]=defaultDay();
+  const dd=state.days[d.id];
+  if(!dd.reps) dd.reps={catecismo:0,verse:0};
+  if(!dd.checks) dd.checks={};
+}
+if(!DAYS.find(d=>d.id===state.day)) state.day=todayDayId();
+function save(){localStorage.setItem(STORAGE_KEY, JSON.stringify(state))}
+
+function cur(){return state.days[state.day]}
+function dayInfo(){return DAYS.find(d=>d.id===state.day)}
+
+function setCheck(id,val){cur().checks[id]=!!val;save()}
+function tapRep(key){const r=cur().reps; if((r[key]||0)<7){r[key]=(r[key]||0)+1;save();render()}}
+function resetRep(key){cur().reps[key]=0;save();render()}
+
+function counterUI(key,label){
+  const n=cur().reps[key]||0, done=n>=7;
+  let dots=""; for(let i=0;i<7;i++) dots+=`<span class="dot ${i<n?"on":""}"></span>`;
+  return `<div class="counter-wrap"><div class="dots">${dots}</div>
+    <button type="button" class="counter-btn ${done?"done":""}" onclick="tapRep('${key}')">
+      <span class="counter-num">${n}/7</span>${done?"✓ Completo":label}
+    </button>
+    ${n?`<p class="hint"><a href="#" onclick="resetRep('${key}');return false" style="color:var(--muted)">Zerar contador</a></p>`:""}
+  </div>`;
+}
+function checkRow(id,label){
+  const on=!!cur().checks[id];
+  return `<label class="check ${on?"done":""}"><input type="checkbox" ${on?"checked":""} onchange="setCheck('${id}',this.checked);render()"><span>${label}</span></label>`;
+}
+
+function dayDone(id){
+  const dd=state.days[id]; if(!dd) return false;
+  return !!(dd.checks&&dd.checks.day_done);
+}
+
+function selectDay(id){
+  if(!DAYS.find(d=>d.id===id)) return;
+  state.day=id; save(); renderDays(); render(); window.scrollTo(0,0);
+}
+
+function renderDays(){
+  const el=document.getElementById("days");
+  el.innerHTML=DAYS.map(d=>`<button type="button" class="day-btn ${d.id===state.day?"active":""} ${dayDone(d.id)?"done-day":""}" onclick="selectDay('${d.id}')"><strong>${d.label}</strong>${d.date}</button>`).join("");
+}
+
+
+function milestoneCard(){
+  const today=new Date(); today.setHours(0,0,0,0);
+  const day=dayInfo();
+  // map day id to calendar date this week
+  const weekDates={seg:"2026-11-02",ter:"2026-11-03",qua:"2026-11-04",qui:"2026-11-05",sex:"2026-11-06",sab:"2026-11-07"};
+  const todayKey=weekDates[day.id]||"";
+  const todayMs=MILESTONES.filter(m=>m.date===todayKey);
+  const upcoming=MILESTONES.filter(m=>m.date>=todayKey).slice(0,3);
+  let list=upcoming.map(m=>{
+    const isToday=m.date===todayKey;
+    return `<li${isToday?` style="color:var(--warn);font-weight:700"`:""}>${escapeHtml(m.label)} — ${escapeHtml(m.title)}${isToday?" · hoje!":""}</li>`;
+  }).join("");
+  if(!list) list=MILESTONES.slice(-3).map(m=>`<li>${escapeHtml(m.label)} — ${escapeHtml(m.title)}</li>`).join("");
+  const todayNote=todayMs.length?`<p class="chant" style="font-size:1.05rem;color:var(--warn)">🎉 Marco de hoje: ${escapeHtml(todayMs[0].title)}</p>`:"";
+  return `<div class="card"><h3>Marcos de celebração</h3>
+    ${todayNote}
+    <ul class="list-plain">${list}</ul>
+    <p class="hint">${escapeHtml(MILESTONE_SEND)}</p>
+  </div>`;
+}
+
+/*CURTO*/const steps=[
+{id:"inicio", title:"Culto de hoje", badge:"Visão · ~12–14 min", html(){
+  const d=dayInfo();
+  return `
+  <p class="muted">${d.label} ${d.date} · versão curta, igual todos os dias. Progresso salvo neste aparelho.</p>
+  <div class="card"><h3>Ordem (~12–14 min)</h3><ol class="list-plain">
+    <li>Hino de abertura (3–4 min)</li>
+    <li>Leitura do Salmo (até 3 min)</li>
+    <li><strong>Catecismo Keach — o centro</strong>: P.${d.catN} · 7× (3–4)</li>
+    <li>Versículo da semana · ${escapeHtml(VERSE_REF)} — 7× (2)</li>
+    <li>Atividade rápida + oração curta (3)</li>
+    <li>Música de encerramento · ${escapeHtml(d.songG||"(falta)")} (1×)</li>
+  </ol></div>
+  ${checkRow("ready","Família pronta para começar")}
+  <p class="hint">Com o bebê: se chorar, faça só o catecismo e a oração e conte como dia feito.</p>`;}},
+{id:"hino", title:"Hino de abertura", badge:"3–4 min", html(){const d=dayInfo(); return `
+  <p><strong>${escapeHtml(d.hymnT)}</strong></p>
+  <p class="hint">Por que este hino hoje: ${escapeHtml(d.hymnWhy)}</p>
+  <a class="link-btn" href="${d.hymnU}" target="_blank" rel="noopener">▶ Abrir vídeo (YouTube)</a>
+  ${famHymnCard()}
+  ${d.hymnL?`<div class="card"><h3>Letra completa (todas as estrofes)</h3><pre class="lyrics">${escapeHtml(d.hymnL)}</pre></div>`:`<div class="card"><p class="hint">Letra: use o hinário ou a letra do vídeo (não copiada aqui para não sair errada).</p></div>`}
+  ${checkRow("hino_sang","Cantamos o hino")}`;}},
+{id:"leitura", title:"Leitura · Salmos", badge:"até 3 min", html(){
+  const d=dayInfo();
+  return `
+  <p class="hint">${escapeHtml(d.readingHint)}</p>
+  <div class="verse"><strong>${escapeHtml(d.reading)}</strong><br><br>${escapeHtml(d.readingText||"")}</div>
+  ${checkRow("leitura_leu","Lemos o texto (ARA)")}`;}},
+{id:"catecismo", title:"Catecismo · Keach (o centro do culto)", badge:"Memória 7× · 3–4 min", html(){
+  const d=dayInfo();
+  const n=CN()||1;
+  const chunks=CC().slice(0,n);
+  let partsHtml="";
+  for(let i=0;i<chunks.length;i++){
+    const isNew=i===n-1;
+    partsHtml+=`<span class="chunk-old">${escapeHtml(chunks[i])}</span> `;
+  }
+  return `
+  <div class="card" style="border-color:#d4a017"><h3>Ligação com o Salmo de hoje</h3><p>${escapeHtml(d.catLink)}</p><p class="hint">Tema: ${escapeHtml(d.catTema)} · Textos do catecismo: ${escapeHtml(d.catRefs)}</p></div>
+  <p>Explique a resposta em 1 minuto e depois digam a <strong>pergunta ${d.catN}</strong> e a resposta completa <strong>7×</strong>.</p>
+  <div class="card"><h3>Pergunta</h3><p class="chant">${escapeHtml(CQ())}</p></div>
+  <div class="card"><h3>Resposta completa de hoje</h3>
+    <p class="hint">Uma pergunta por dia, ligada ao Salmo. Fonte: Catecismo Batista (Keach), trad. O Estandarte de Cristo.</p>
+    <p class="chant" style="font-size:1.05rem;text-align:left;line-height:1.75">${partsHtml.trim()}</p>
+  </div>
+  <div class="card"><h3>Anya e Yosef (versão curta)</h3>
+    <p class="chant" style="font-size:1.05rem">${escapeHtml(CQ())}<br><br>${escapeHtml(CS())}</p>
+  </div>
+  ${famModesCard("catecismo")}
+  ${counterUI("catecismo","Toque a cada repetição")}
+  ${checkRow("cat_done","Catecismo 7× feito")}`;}},
+/*VERSO_CURTO*/{id:"versiculo", title:"Versículo da semana", badge:"Memória 7× · 2 min", html(){return `
+  <p>Leia juntos e repitam o versículo com a referência <strong>7×</strong>.</p>
+  <div class="verse"><strong>${escapeHtml(VERSE_REF)}</strong><br><br>${escapeHtml(VERSE_TEXT)}</div>
+  <p class="hint">Anya e Yosef: só a primeira frase + a referência (Bethany diz inteiro).</p>
+  ${famModesCard("verse")}
+  ${counterUI("verse","Toque a cada repetição")}
+  ${checkRow("ver_done","Versículo 7× feito")}`;}},
+{id:"atividade", title:"Atividade + oração", badge:"3 min", html(){
+  const d=dayInfo();
+  return `
+  <div class="card"><h3>Atividade rápida · hoje: <span class="who">${escapeHtml(d.who)}</span></h3>
+    <p>${escapeHtml(d.who)} diz a resposta do catecismo em pé e explica com as próprias palavras (1–2 min). Anya e Yosef repetem só: “${escapeHtml(CS())}”</p>
+    <p class="hint">Revisão rápida, se der (1×): Keach P.11 + Sl 115.3 (semanas anteriores).</p>
+    ${d.activity?`<p class="hint">Sábado, se der: ${escapeHtml(d.activity)}</p>`:""}
+  </div>
+  ${checkRow("apres_done","Atividade feita")}
+  <div class="card"><h3>Oração curta</h3><p class="muted">Cada um agradece por uma coisa; o pai encerra.</p></div>
+  ${checkRow("ora_pai","Oramos juntos")}
+  <div class="card" style="border-color:#7a5af5"><h3>🎵 Música de encerramento · ${escapeHtml(d.songG||"")}</h3>${d.songU?`<p class="muted">A leitura de hoje é de ${escapeHtml(d.bibleBook)}, do grupo <strong>${escapeHtml(d.songG)}</strong>. Cantem 1× a música do grupo.</p><a class="link-btn" href="${d.songU}" target="_blank" rel="noopener">▶ Abrir música (Suno)</a>`:`<p class="hint">Falta a música deste grupo de livros.</p>`}</div>
+  ${checkRow("musica_fim","Cantamos a música do grupo")}
+  ${checkRow("day_done","Culto de hoje concluído")}`;}},
+{id:"resultado", title:"Resumo do dia", badge:"Copiar (opcional)", html(){
+  const s=buildSummary();
+  return `
+  <p>Se quiser registrar, copie o resumo.</p>
+  <div class="card"><h3>Resumo</h3>
+    <pre id="summaryText" style="white-space:pre-wrap;font-family:inherit;font-size:.9rem;margin:0;color:var(--text)">${escapeHtml(s)}</pre>
+  </div>
+  <div class="btn-row"><button type="button" class="good" onclick="copyResult()">Copiar resultado</button><button type="button" onclick="emailResult()">Enviar resultado por e-mail</button></div>
+  <p class="hint">Domingo: igreja (livre). Troque o dia acima para marcar outro dia da semana.</p>`;}}
+];
+
+
+
+
+
+
+
+const AUD={"reading_seg": "audio-voz/culto-2026-11-02/leitura-seg-sl30-1-12.mp3", "cat_seg": "audio-voz/culto-2026-11-02/catecismo-seg-p2.mp3", "kids_seg": "audio-voz/culto-2026-11-02/catecismo-criancas-seg-p2.mp3", "reading_ter": "audio-voz/culto-2026-11-02/leitura-ter-sl31-1-13.mp3", "cat_ter": "audio-voz/culto-2026-11-02/catecismo-ter-p8.mp3", "kids_ter": "audio-voz/culto-2026-11-02/catecismo-criancas-ter-p8.mp3", "reading_qua": "audio-voz/culto-2026-11-02/leitura-qua-sl31-14-24.mp3", "cat_qua": "audio-voz/culto-2026-11-02/catecismo-qua-p15.mp3", "kids_qua": "audio-voz/culto-2026-11-02/catecismo-criancas-qua-p15.mp3", "reading_qui": "audio-voz/culto-2026-11-02/leitura-qui-sl32-1-11.mp3", "cat_qui": "audio-voz/culto-2026-11-02/catecismo-qui-p37.mp3", "kids_qui": "audio-voz/culto-2026-11-02/catecismo-criancas-qui-p37.mp3", "reading_sex": "audio-voz/culto-2026-11-02/leitura-sex-sl33-1-22.mp3", "cat_sex": "audio-voz/culto-2026-11-02/catecismo-sex-p13.mp3", "kids_sex": "audio-voz/culto-2026-11-02/catecismo-criancas-sex-p13.mp3", "reading_sab": "audio-voz/culto-2026-11-02/leitura-sab-sl34-1-22.mp3", "cat_sab": "audio-voz/culto-2026-11-02/catecismo-sab-p1.mp3", "kids_sab": "audio-voz/culto-2026-11-02/catecismo-criancas-sab-p1.mp3", "verse": "audio-voz/culto-2026-11-02/versiculo-semana.mp3"};
+if(typeof AUDIO_REP!=="undefined") AUD.bloco=AUDIO_REP;
+const LISTEN_MAP={"leitura":()=>["reading_"+dayInfo().id],"catecismo":()=>["cat_"+dayInfo().id,"kids_"+dayInfo().id],"versiculo":()=>["verse"]};
+const LISTEN_SEQ=()=>["reading_"+dayInfo().id,"cat_"+dayInfo().id,"kids_"+dayInfo().id,"verse"];
+let _seqAudio=null;
+function listenUI(keys){
+  keys=(keys||[]).filter(k=>AUD[k]); if(!keys.length) return "";
+  return `<div class="card" style="border-color:#0d9488"><h3 style="color:#2dd4bf">🎧 Ouvir</h3>${keys.map(k=>`<audio controls preload="none" src="${AUD[k]}"></audio>`).join("")}</div>`;
+}
+function playSeq(){
+  stopSeq(); const keys=LISTEN_SEQ().filter(k=>AUD[k]); let i=0;
+  _seqAudio=new Audio(); const st=document.getElementById("seqStatus");
+  const next=()=>{ if(i>=keys.length){ if(st) st.textContent="Fim da sequência."; _seqAudio=null; return; }
+    if(st) st.textContent="Tocando "+(i+1)+" de "+keys.length; _seqAudio.src=AUD[keys[i++]]; _seqAudio.play().catch(()=>{}); };
+  _seqAudio.onended=next; next();
+}
+function stopSeq(){ if(_seqAudio){_seqAudio.pause(); _seqAudio=null;} const st=document.getElementById("seqStatus"); if(st) st.textContent=""; }
+function seqUI(){ return `<div class="card" style="border-color:#0d9488"><h3 style="color:#2dd4bf">🚗 Modo só ouvir</h3><div class="btn-row"><button type="button" style="background:#0d9488" onclick="playSeq()">▶ Ouvir tudo em sequência</button><button type="button" class="secondary" onclick="stopSeq()">■ Parar</button></div><p class="hint" id="seqStatus"></p></div>`; }
+steps.forEach((s,idx)=>{ const f=s.html; s.html=function(){ const fn=LISTEN_MAP[s.id]; return (idx===0?seqUI():"")+(fn?listenUI(fn()):"")+f.call(this); }; });
+
+function _baseSummary(){
+  const d=dayInfo(); const c=cur();
+  const lines=[];
+  lines.push("CULTO DA FAMÍLIA · "+d.label+" "+d.date+" · semana 02–07/11 · Salmos");
+  lines.push("Apresentação: "+d.who);
+  lines.push("");
+  lines.push("REPETIÇÕES 7×:");
+  lines.push("- Leitura: "+d.reading);
+  lines.push("- Catecismo Keach P."+d.catN+": "+(c.reps.catecismo||0)+"/7");
+  lines.push("- "+VERSE_REF+": "+(c.reps.verse||0)+"/7");
+    lines.push("");
+  lines.push("CHECKS:");
+  const labels={ready:"Prontos",hino_sang:"Hino de abertura",leitura_leu:"Leitura ARA",cat_done:"Catecismo 7×",ver_done:"Versículo 7×",apres_done:"Atividade com as crianças",ora_pai:"Oração",musica_fim:"Música de encerramento",day_done:"Dia concluído"};
+  for(const [k,v] of Object.entries(labels)){
+    if(k==="atividade_done" && !d.activity) continue;
+    lines.push("- ["+(c.checks[k]?"x":" ")+"] "+v);
+  }
+  return lines.join("\n");
+}
+
+function emailResult(){const d=dayInfo();const [dd,mm]=String(d.date).split("/");location.href="mailto:abnergonzales64@gmail.com?subject="+encodeURIComponent("Resultado culto 2026-"+mm+"-"+dd)+"&body="+encodeURIComponent(buildSummary());}
+async function copyResult(){
+  const s=buildSummary();
+  try{await navigator.clipboard.writeText(s); toast("Copiado!");}
+  catch(e){const ta=document.createElement("textarea"); ta.value=s; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta); toast("Copiado!");}
+}
+function toast(msg){const t=document.getElementById("toast"); t.textContent=msg; t.classList.add("show"); setTimeout(()=>t.classList.remove("show"),1600)}
+
+function render(){
+  const dd=cur();
+  const i=Math.max(0,Math.min(dd.step, steps.length-1));
+  dd.step=i;
+  const s=steps[i];
+  const d=dayInfo();
+  document.querySelector("header h1").textContent="Culto da família · "+d.label+" "+d.date;
+  document.getElementById("main").innerHTML=`<div class="step active"><span class="badge">${s.badge} · etapa ${i+1}/${steps.length}</span><h2>${s.title}</h2>${s.html()}</div>`;
+  document.getElementById("prog").style.width=((i)/(steps.length-1)*100)+"%";
+  document.getElementById("btnBack").disabled=i===0;
+  document.getElementById("btnNext").textContent=i===steps.length-1?"Fim":"Próximo";
+  renderDays();
+  save();
+}
+
+document.getElementById("btnBack").onclick=()=>{const dd=cur(); if(dd.step>0){dd.step--;save();render();window.scrollTo(0,0)}};
+document.getElementById("btnNext").onclick=()=>{const dd=cur(); if(dd.step<steps.length-1){dd.step++;save();render();window.scrollTo(0,0)}else toast("Culto no fim — pode copiar o resumo")};
+renderDays();
+render();
+/*REPMODES*/
+function REP_STORE(){return cur();}
+function REP_LYRICS(k){ if(k==="catecismo"){const n=CN()||1; return CQ()+"\n"+CC().slice(0,n).join("\n")+"\n\nAnya e Yosef: "+CQ()+" "+CC()[0];} return VERSE_REF+"\n"+VERSE_TEXT; }
+function REP_AUDIO(k){ return k==="catecismo"?AUD["cat_"+dayInfo().id]:AUD.verse; }
+const REP_LABELS={get catecismo(){return "Catecismo Keach P."+dayInfo().catN}, verse:VERSE_REF};
+const REP_LEVELS=[["lendo","Fiz lendo/ouvindo"],["cabeca","Fiz de cabeça"]];
+function _rm(){const s=REP_STORE(); if(!s.repLevels) s.repLevels={}; return s;}
+function tapRepLevel(key,lvl){const s=_rm(); const n=s.reps[key]||0; if(n>=7) return;
+  const m=s.repLevels[key]=Object.assign({cabeca:0,lendo:0},s.repLevels[key]); m[lvl]=(m[lvl]||0)+1; s.reps[key]=n+1; save(); render();}
+function tapRep(key){tapRepLevel(key,"cabeca");}
+function resetRep(key){const s=_rm(); s.reps[key]=0; s.repLevels[key]={cabeca:0,lendo:0}; save(); render();}
+function repModeText(key){const m=(_rm().repLevels[key])||{}; return "de cabeça "+((m.cabeca||0)+(m.memoria||0))+" · lendo/ouvindo "+((m.lendo||0)+(m.musica||0)+(m.letra||0));}
+function counterUI(key,label){
+  const s=_rm(); const n=s.reps[key]||0, done=n>=7;
+  let dots=""; for(let i=0;i<7;i++) dots+=`<span class="dot ${i<n?"on":""}"></span>`;
+  const src=REP_AUDIO(key); const lyr=REP_LYRICS(key)||"";
+  return `<div class="counter-wrap"><div class="dots">${dots}</div>
+    <div class="card" style="text-align:left">${src?`<audio controls preload="none" src="${src}"></audio>`:""}
+      <details><summary style="cursor:pointer;color:var(--accent);font-weight:700">Texto (toque para abrir/fechar)</summary><p style="white-space:pre-line;margin:8px 0 0">${escapeHtml(lyr)}</p></details></div>
+    <p style="font-size:1.4rem;margin:6px 0"><strong>${n}/7</strong> ${done?"✓ Completo":"— repetição "+(n+1)+": como você fez?"}</p>
+    ${done?"":REP_LEVELS.map(([k,l],i)=>`<button type="button" style="display:block;width:100%;margin:8px 0;${i===1?"background:linear-gradient(180deg,#2bb673,#1a7a4c)":"background:#7a5af5"}" onclick="tapRepLevel('${key}','${k}')">${l}</button>`).join("")}
+    <p class="hint">${repModeText(key)} · meta: tudo de cabeça até a última semana do bloco${n?` · <a href="#" onclick="resetRep('${key}');return false" style="color:var(--muted)">Zerar</a>`:""}</p>
+  </div>`;
+}
+function buildSummary(){
+  const b=_baseSummary(); const lines=["","NÍVEL DAS 7 REPETIÇÕES POR DISCIPLINA (de cabeça / lendo-ouvindo):"];
+  for(const [k,l] of Object.entries(REP_LABELS)) lines.push("- "+l+": "+((_rm().reps[k])||0)+"/7 · "+repModeText(k));
+  if(typeof _extraSummary==="function") lines.push(..._extraSummary());
+  const add=lines.join("\n");
+  if(typeof b==="string") return b+"\n"+add;
+  b.text=b.text+"\n"+add; return b;
+}
+/*/REPMODES*/
+</script>
+<script>/*RESPOSTA_ESCRITA*/
+(function(){
+const RK=STORAGE_KEY+":resposta_escrita";
+const LBL='O que precisa melhorar? Alguma coisa que...';
+const DK=()=>STORAGE_KEY+":deucerto"+":"+dayInfo().id;
+function dget(){try{return localStorage.getItem(DK())==="1"}catch(e){return false}}
+window.__deuCerto=function(el){try{localStorage.setItem(DK(),el.checked?"1":"0")}catch(e){}};
+function rget(){try{return localStorage.getItem(RK)||""}catch(e){return ""}}
+function rset(v){try{localStorage.setItem(RK,v)}catch(e){}}
+window.__respSave=function(el){rset(el.value);const p=document.getElementById("summaryText");if(p){try{const b=buildSummary();p.textContent=typeof b==="string"?b:b.text}catch(e){}}};
+const last=steps[steps.length-1];
+if(!last._resp){const f=last.html;last.html=function(){return f.call(this)+`<div class="card" id="resp-escrita"><h3>Resposta escrita</h3><label for="respTxt" style="display:block;margin-bottom:6px">${LBL}</label><textarea id="respTxt" rows="5" style="width:100%;font-size:1rem" placeholder="${LBL}" oninput="__respSave(this)">${escapeHtml(rget())}</textarea><label style="display:flex;gap:10px;align-items:flex-start;margin-top:12px"><input type="checkbox" style="width:24px;height:24px;flex:none" ${dget()?"checked":""} onchange="__deuCerto(this)"><span>Deu certo: o resultado esperado do devocional de hoje foi alcançado</span></label></div>`};last._resp=true}
+const _bs=buildSummary;
+buildSummary=function(){const b=_bs.apply(this,arguments);const add="\n\nResposta escrita: "+(rget().trim()||"(vazio)")+"\nDeu certo: "+(dget()?"sim":"não");
+  if(typeof b==="string")return b+add;b.text=b.text+add;return b};
+const AK=()=>STORAGE_KEY+":antes:"+dayInfo().id;
+function aget(){try{return JSON.parse(localStorage.getItem(AK())||"{}")||{}}catch(e){return {}}}
+window.__antes=function(k,el){const o=aget();o[k]=el.checked;try{localStorage.setItem(AK(),JSON.stringify(o))}catch(e){}};
+function antesItems(){const it=[["agua","Pegar água para as crianças e levá-las ao banheiro, para não atrapalharem durante o momento devocional."],["brinquedos","Combinar com as crianças que não vão brigar pelos brinquedos durante o momento devocional."]];
+  it.push(["biblias","Bíblias marcadas: colocar um adesivo ou fita colorida na capa da Bíblia de cada criança, com o nome (ex.: Bíblia da Bethany, Bíblia do Yohan), para acabar com a briga pela posse.",1]);
+  return it}
+const first=steps[0];
+if(!first._prep){const f=first.html;first.html=function(){const o=aget();return `<div class="card" style="border-color:#f59e0b"><p style="margin:0 0 6px"><strong>Antes de começar:</strong></p>${antesItems().map(([k,l,hl])=>`<label style="display:flex;gap:10px;align-items:flex-start;margin:8px 0;${hl?"background:#fde68a;color:#111;border-radius:8px;padding:8px;font-weight:700":""}"><input type="checkbox" style="width:24px;height:24px;flex:none" ${o[k]?"checked":""} onchange="__antes('${k}',this)"><span>${l}</span></label>`).join("")}</div>`+f.call(this)};first._prep=true}
+const _bs2=buildSummary;
+buildSummary=function(){const b=_bs2.apply(this,arguments);const o=aget();const add="\n\nAntes de começar:\n"+antesItems().map(([k,l])=>"- ["+(o[k]?"x":" ")+"] "+l).join("\n");
+  if(typeof b==="string")return b+add;b.text=b.text+add;return b};
+try{render()}catch(e){console.error(e)}
+})();
+</script>
+<script>/*REVEAL*/
+(function(){
+const HDR_KEYS={concilio:1,verse:1,english:1,catecismo:1};
+const RV={}; /* sessão atual por chave: {i:palavras reveladas, m:[1 ok,0 erro,null], full:bool} */
+function rvText(key){let l=String(REP_LYRICS(key)||"").split("\n\nAnya")[0]; const a=l.split("\n");
+  let head=""; if(HDR_KEYS[key]&&a.length>1){head=a.shift().trim();}
+  const words=a.join(" ").replace(/\s+/g," ").trim().split(" ").filter(Boolean); return {head,words};}
+function rvS(key){const t=rvText(key); let r=RV[key]; if(!r||r.n!==t.words.length) r=RV[key]={i:0,m:[],full:false,n:t.words.length}; return [r,t];}
+function rvLog(key){const s=_rm(); if(!s.revLog) s.revLog={}; if(!s.revLog[key]) s.revLog[key]=[]; return s.revLog[key];}
+window.rvReveal=function(key){const [r,t]=rvS(key); if(r.i<t.words.length){r.i++; render();}};
+window.rvMark=function(key,idx,ok){const [r]=rvS(key); r.m[idx]=ok; render();};
+window.rvFull=function(key){const [r]=rvS(key); r.full=true; render();};
+window.rvRestart=function(key){delete RV[key]; render();};
+window.rvFinish=function(key,lvl){const s=_rm(); const n=s.reps[key]||0; if(n>=7) return; const [r,t]=rvS(key);
+  const ok=r.m.filter(x=>x===1).length, bad=r.m.filter(x=>x===0).length;
+  rvLog(key).push({n:n+1,lvl:lvl,rev:r.i,tot:t.words.length,ok:ok,bad:bad,full:!!r.full});
+  delete RV[key]; tapRepLevel(key,lvl);};
+function rvStats(key){const [r,t]=rvS(key); const ok=r.m.filter(x=>x===1).length; const marked=r.m.filter(x=>x===1||x===0).length; return {r,t,ok,marked};}
+function lvlLabel(l){return l==="cabeca"?"de cabeça":"lendo/ouvindo";}
+window.repModeText=function(key){const m=(_rm().repLevels[key])||{}; return "de cabeça "+((m.cabeca||0)+(m.memoria||0))+" · lendo/ouvindo "+((m.lendo||0)+(m.musica||0)+(m.letra||0));};
+const BTN='display:block;width:100%;min-height:64px;margin:8px 0;font-size:1.2rem;border-radius:16px;';
+window.counterUI=function(key,label){
+  const s=_rm(); const n=s.reps[key]||0, done=n>=7;
+  let dots=""; for(let i=0;i<7;i++) dots+=`<span class="dot ${i<n?"on":""}"></span>`;
+  const src=(typeof REP_AUDIO==="function")?((typeof cur==="function"||key==="concilio")?REP_AUDIO(key):""):"";
+  const audio=src?`<audio controls preload="none" src="${src}" style="width:100%"></audio>`:"";
+  const log=(s.revLog&&s.revLog[key])||[];
+  const logHtml=log.length?`<details><summary style="cursor:pointer;color:var(--muted)">Registro das repetições</summary><ul class="list-plain">${log.map(e=>`<li>${e.n}ª: ${lvlLabel(e.lvl)} · ${e.rev}/${e.tot} palavras reveladas${(e.ok+e.bad)?` · ${e.ok}/${e.ok+e.bad} acertos`:""}${e.full?" · viu o texto todo":""}</li>`).join("")}</ul></details>`:"";
+  if(done) return `<div class="counter-wrap"><div class="dots">${dots}</div><p style="font-size:1.4rem;margin:6px 0"><strong>7/7</strong> ✓ Completo</p>${logHtml}<p class="hint">${repModeText(key)} · <a href="#" onclick="resetRep('${key}');return false" style="color:var(--muted)">Zerar</a></p></div>`;
+  const {r,t,ok,marked}=rvStats(key); const tot=t.words.length, fin=r.i>=tot;
+  let shown=""; for(let i=0;i<r.i;i++){const mk=r.m[i];
+    shown+=`<span style="display:inline-block;margin:3px 2px;padding:4px 6px;border-radius:8px;background:${mk===1?"#1a7a4c":mk===0?"#8a2b2b":"#2a3140"}"><span style="font-size:1.15rem">${escapeHtml(t.words[i])}</span><br><button type="button" style="min-width:40px;min-height:40px;margin:2px;background:${mk===1?"#2bb673":"#3a4254"}" onclick="rvMark('${key}',${i},1)" aria-label="Acertei">✓</button><button type="button" style="min-width:40px;min-height:40px;margin:2px;background:${mk===0?"#d9534f":"#3a4254"}" onclick="rvMark('${key}',${i},0)" aria-label="Errei">✗</button></span>`;}
+  const semDica=(r.i===0), sug=(!r.full&&marked>0&&ok===marked)?"cabeca":"lendo";
+  return `<div class="counter-wrap"><div class="dots">${dots}</div>
+    <div class="card" style="text-align:left">${t.head?`<p class="hint" style="margin:0 0 6px"><strong>${escapeHtml(t.head)}</strong></p>`:""}${audio}
+      <p class="hint" style="margin:8px 0">Repetição ${n+1}/7. Recite em voz alta, de cabeça, até onde souber. Só toque quando travar.</p>
+      <div style="min-height:56px;line-height:1.9">${shown||'<span class="muted">Nenhuma palavra revelada ainda.</span>'}</div>
+      <p style="margin:8px 0"><strong>${r.i}/${tot}</strong> reveladas · conferido: <strong>${ok}/${marked}</strong> de cabeça</p>
+      ${fin?"":`<button type="button" style="${BTN}background:#7a5af5" onclick="rvReveal('${key}')">Revelar próxima palavra</button>`}
+      ${r.full?`<div class="card" style="margin-top:8px"><p style="white-space:pre-line;margin:0">${escapeHtml(t.words.join(" "))}</p></div>`:""}
+      ${r.i>0?`<p class="hint">Toque ✓ se você tinha dito a palavra certa antes de revelar, ✗ se errou ou esqueceu.</p>`:""}
+    </div>
+    <p style="font-size:1.2rem;margin:6px 0">Terminou a repetição ${n+1}? ${semDica?"Você não pediu nenhuma dica: sugerido <strong>de cabeça</strong>.":(sug==="cabeca"?"Todas as palavras conferidas estão certas.":"")}</p>
+    <button type="button" style="${BTN}background:${(sug==="cabeca"||semDica)?"linear-gradient(180deg,#2bb673,#1a7a4c)":"#3a4254"}" onclick="rvFinish('${key}','cabeca')">Fiz de cabeça${(sug==="cabeca"||semDica)?" (sugerido)":""}</button>
+    <button type="button" style="${BTN}background:${(sug==="cabeca"||semDica)?"#3a4254":"#7a5af5"}" onclick="rvFinish('${key}','lendo')">Fiz lendo/ouvindo</button>
+    ${r.i>0||r.full?`<p class="hint"><a href="#" onclick="rvRestart('${key}');return false" style="color:var(--muted)">Recomeçar esta repetição</a></p>`:""}
+    ${logHtml}
+    <p class="hint">${repModeText(key)} · meta: tudo de cabeça até a última semana do bloco${n?` · <a href="#" onclick="resetRep('${key}');return false" style="color:var(--muted)">Zerar</a>`:""}</p>
+    ${r.full?"":`<p class="hint" style="margin-top:18px;text-align:center"><a href="#" onclick="if(confirm('Ver o texto todo conta como lendo. Continuar?')){rvFull('${key}')}return false" style="color:var(--muted)">Travei: ver texto todo</a></p>`}
+  </div>`;
+};
+const _bs=window.buildSummary;
+window.buildSummary=function(){const b=_bs(); const L=["","REPETIÇÕES (revelação progressiva): nível e palavras reveladas por repetição:"];
+  for(const [k,l] of Object.entries(REP_LABELS)){const lg=(_rm().revLog&&_rm().revLog[k])||[];
+    L.push("- "+l+": "+((_rm().reps[k])||0)+"/7");
+    lg.forEach(e=>L.push("    "+e.n+"ª: "+lvlLabel(e.lvl)+" · "+e.rev+"/"+e.tot+" reveladas"+((e.ok+e.bad)?" · "+e.ok+"/"+(e.ok+e.bad)+" acertos de cabeça":"")+(e.full?" · viu texto todo":"")));}
+  const add=L.join("\n"); if(typeof b==="string") return b+"\n"+add; b.text=b.text+"\n"+add; return b;};
+try{render()}catch(e){console.error(e)}
+})();
+/*/REVEAL*/</script>
+<script>/*NAVENVIO*/
+(function(){
+const p2=n=>String(n).padStart(2,"0");
+const mk=String(STORAGE_KEY).match(/rotina-(\d{4}-\d\d-\d\d)/); const pd=mk&&mk[1];
+const dt=new Date(); const td=dt.getFullYear()+"-"+p2(dt.getMonth()+1)+"-"+p2(dt.getDate());
+function banner(msg,href){const b=document.createElement("div");b.id="navDia";
+  b.style.cssText="position:sticky;top:0;z-index:50;background:#7a5af5;color:#fff;padding:12px;text-align:center;font-weight:700";
+  b.innerHTML=msg+(href?' <a href="'+href+'" style="color:#fff;text-decoration:underline">Abrir a rotina de hoje</a>':"");
+  document.body.insertBefore(b,document.body.firstChild);}
+if(pd&&td!==pd){
+  const f="rotina-"+td+".html";
+  if(td>pd){
+    banner("Esta página é de "+pd.split("-").reverse().join("/")+" (hoje é "+td.split("-").reverse().join("/")+").",f);
+    if(/^https?:/.test(location.protocol)&&typeof fetch==="function"){
+      fetch(f,{method:"HEAD",cache:"no-store"}).then(r=>{if(r.ok) location.replace(f)}).catch(()=>{});}
+  } else banner("Atenção: esta página é de "+pd.split("-").reverse().join("/")+" (ainda não é o dia).");
+}
+// passo final: botões no topo, resumo recolhido
+try{
+  const st=steps.find(s=>s.id==="resultado");
+  if(st&&!st.__ne){st.__ne=1; const oh=st.html;
+    st.html=function(){let h=oh.apply(this,arguments);
+      const re=/<div class="btn-row">[\s\S]*?<\/div>/; let btn=(h.match(re)||[""])[0];
+      if(!/emailResult/.test(btn)||!/copyResult/.test(btn)) btn='<div class="btn-row"><button type="button" class="good" onclick="copyResult()">Copiar resultado</button><button type="button" onclick="emailResult()">Enviar resultado por e-mail</button></div>';
+      else h=h.replace(re,"");
+      h=h.replace(/<div class="card"><h3>Resumo<\/h3>/,'<details class="card" style="text-align:left"><summary style="cursor:pointer;font-weight:700">Ver o resumo que será enviado</summary>').replace(/(id="summaryText"[\s\S]*?<\/pre>)\s*<\/div>/,"$1</details>");
+      const box='<div id="envioBox" style="border:2px solid var(--good,#2bb673);border-radius:12px;padding:10px;margin:10px 0"><p style="margin:0 0 6px;font-weight:700">Último passo: envie o resultado do dia</p>'+btn+'<p class="hint" style="margin:6px 0 0">Se o e-mail não abrir, toque em “Copiar resultado” e cole no chat.</p></div>';
+      return h.replace(/(<p>Revise[^<]*<\/p>)/, box+"$1").replace(/^/, h.indexOf("envioBox")<0&&!/Revise/.test(h)?box:"");};}
+}catch(e){console.error("navenvio",e)}
+// e-mail: mailto tem limite; copia o resumo e manda corpo curto se for longo
+const _em=window.emailResult;
+if(pd) window.emailResult=function(){const s=buildSummary(); const text=(typeof s==="string"?s:s.text)||"";
+  const subj="Resultado rotina "+(pd||td); let body=text, note="";
+  if(encodeURIComponent(body).length>1800){
+    try{navigator.clipboard&&navigator.clipboard.writeText(text)}catch(e){}
+    try{const ta=document.createElement("textarea");ta.value=text;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove()}catch(e){}
+    while(encodeURIComponent(body+"\n[...]").length>1500) body=body.slice(0,Math.floor(body.length*0.9));
+    body+="\n[...] Resumo completo copiado: cole aqui por cima se faltar algo.";
+    try{toast("Resumo copiado; cole no e-mail se vier cortado")}catch(e){}}
+  location.href="mailto:abnergonzales64@gmail.com?subject="+encodeURIComponent(subj)+"&body="+encodeURIComponent(body);};
+// "Fim" no último passo: vai aos botões de envio
+const bn=document.getElementById("btnNext");
+if(bn&&!bn.__ne){bn.__ne=1; const prev=bn.onclick;
+  bn.onclick=function(){ const _st=(typeof cur==="function"&&cur()&&cur().step!=null)?cur().step:state.step; if(_st>=steps.length-1){ window.scrollTo(0,0); const b=document.getElementById("envioBox"); if(b){b.scrollIntoView&&b.scrollIntoView({block:"start"}); b.style.boxShadow="0 0 0 4px #ffd54a"; setTimeout(()=>b.style.boxShadow="",2500);} try{toast("Toque em “Enviar resultado por e-mail”")}catch(e){} } else prev&&prev.apply(this,arguments); };}
+try{render()}catch(e){}
+})();
+/*/NAVENVIO*//*FAMMODOS*/
+const FAM_SKIP=[];
+const FAM_MODES=["O menor começa, os outros continuam, com voz de gigante", "Todos juntos, agachados e subindo devagar até o fim", "Só os meninos, em voz bem alta (sem gritar)", "Em duplas, um completa o outro, bem devagar, como tartaruga", "Só os meninos, passando uma almofada a cada frase", "Só os meninos, dando uma volta em cima do tapete", "Um de cada vez, na roda, de mãos dadas", "Todos juntos, de mãos dadas", "Papai e as crianças, dando uma volta em cima do tapete", "Mamãe e as crianças, batendo palmas", "Papai e as crianças, batendo o pé no ritmo", "Todos juntos, de pé, marchando no lugar", "Só os meninos, de mãos dadas", "Todos juntos, terminando com um abraço em grupo", "Em duplas, um completa o outro, pulando a cada frase", "Mamãe e as crianças, segurando uma colher como microfone", "O menor começa, os outros continuam, batendo o pé no ritmo", "Papai e as crianças, batendo palmas", "O menor começa, os outros continuam, sussurrando bem baixinho", "O menor começa, os outros continuam, pulando a cada frase", "Papai e as crianças, de pé, marchando no lugar", "Só os meninos, terminando com um abraço em grupo", "Todos juntos, com um chapéu ou pano na cabeça", "Todos juntos, fazendo mímica das palavras", "Só os meninos, com voz fininha de ratinho", "Só os meninos, fazendo mímica das palavras", "Todos juntos, passando uma almofada a cada frase", "Só os meninos, como locutor de rádio", "Só as meninas, em voz bem alta (sem gritar)", "O menor começa, os outros continuam, de mãos dadas", "Mamãe e as crianças, agachados e subindo devagar até o fim", "Só os meninos, com voz de gigante", "O menor começa, os outros continuam, terminando com um abraço em grupo", "Todos juntos, segurando uma colher como microfone", "Mamãe e as crianças, bem devagar, como tartaruga", "Só os meninos, rapidinho, como coelho", "O menor começa, os outros continuam, bem devagar, como tartaruga", "Em duplas, um completa o outro, com um chapéu ou pano na cabeça", "Mamãe e as crianças, rapidinho, como coelho", "Em duplas, um completa o outro, agachados e subindo devagar até o fim", "Mamãe e as crianças, dando uma volta em cima do tapete", "Todos juntos, com voz de gigante", "Só as meninas, batendo palmas", "O menor começa, os outros continuam, batendo palmas", "Só os meninos, como se contasse um segredo ao vizinho", "Todos juntos, com voz de robô", "Mamãe e as crianças, como locutor de rádio", "Só as meninas, com voz de gigante", "Um de cada vez, na roda, agachados e subindo devagar até o fim", "Papai e as crianças, com voz de gigante", "Só as meninas, levantando um dedo a cada palavra importante", "Papai e as crianças, em voz bem alta (sem gritar)", "O menor começa, os outros continuam, rapidinho, como coelho", "Um de cada vez, na roda, terminando com um abraço em grupo", "Todos juntos, bem devagar, como tartaruga", "O menor começa, os outros continuam, com voz de robô", "O menor começa, os outros continuam, em eco: um diz um pedaço, os outros repetem", "Todos juntos, batendo o pé no ritmo", "O menor começa, os outros continuam, levantando um dedo a cada palavra importante", "Só as meninas, com voz fininha de ratinho", "Mamãe e as crianças, de pé, marchando no lugar", "Em duplas, um completa o outro, de olhos fechados", "Um de cada vez, na roda, de olhos fechados", "Só os meninos, levantando um dedo a cada palavra importante", "O menor começa, os outros continuam, como se contasse um segredo ao vizinho", "Em duplas, um completa o outro, passando uma almofada a cada frase", "Todos juntos, de olhos fechados", "Um de cada vez, na roda, segurando uma colher como microfone", "Só as meninas, em eco: um diz um pedaço, os outros repetem", "Em duplas, um completa o outro, em eco: um diz um pedaço, os outros repetem", "Um de cada vez, na roda, fazendo mímica das palavras", "Mamãe e as crianças, com um chapéu ou pano na cabeça", "Mamãe e as crianças, em eco: um diz um pedaço, os outros repetem", "Só as meninas, rapidinho, como coelho", "Um de cada vez, na roda, dando uma volta em cima do tapete", "Papai e as crianças, batucando na mesa ou numa panela", "Só os meninos, batucando na mesa ou numa panela", "Papai e as crianças, levantando um dedo a cada palavra importante", "Em duplas, um completa o outro, sussurrando bem baixinho", "Mamãe e as crianças, de mãos dadas", "Papai e as crianças, terminando com um abraço em grupo", "Só as meninas, fazendo mímica das palavras", "Só as meninas, batucando na mesa ou numa panela", "Só as meninas, batendo o pé no ritmo", "Papai e as crianças, fazendo mímica das palavras", "Um de cada vez, na roda, bem devagar, como tartaruga", "Papai e as crianças, como se contasse um segredo ao vizinho", "Só os meninos, com um chapéu ou pano na cabeça", "Só as meninas, pulando a cada frase", "O menor começa, os outros continuam, passando uma almofada a cada frase", "Mamãe e as crianças, passando uma almofada a cada frase", "Papai e as crianças, sussurrando bem baixinho", "Papai e as crianças, de olhos fechados", "Em duplas, um completa o outro, segurando uma colher como microfone", "Todos juntos, em eco: um diz um pedaço, os outros repetem", "Todos juntos, sussurrando bem baixinho", "Só os meninos, batendo o pé no ritmo", "Só os meninos, pulando a cada frase", "O menor começa, os outros continuam, em voz bem alta (sem gritar)", "Só as meninas, bem devagar, como tartaruga", "Um de cada vez, na roda, como locutor de rádio", "Mamãe e as crianças, terminando com um abraço em grupo", "Em duplas, um completa o outro, rapidinho, como coelho", "Em duplas, um completa o outro, como locutor de rádio", "Papai e as crianças, com voz de robô", "O menor começa, os outros continuam, fazendo mímica das palavras", "Só as meninas, dando uma volta em cima do tapete", "Só os meninos, segurando uma colher como microfone", "Papai e as crianças, de mãos dadas", "Só as meninas, sussurrando bem baixinho", "Só as meninas, com um chapéu ou pano na cabeça", "Só os meninos, com voz de robô", "Só as meninas, como locutor de rádio", "Em duplas, um completa o outro, com voz de gigante", "Um de cada vez, na roda, sussurrando bem baixinho", "Papai e as crianças, agachados e subindo devagar até o fim", "Só as meninas, de olhos fechados", "Em duplas, um completa o outro, com voz fininha de ratinho", "Em duplas, um completa o outro, levantando um dedo a cada palavra importante", "Todos juntos, batucando na mesa ou numa panela", "Mamãe e as crianças, como se contasse um segredo ao vizinho", "Em duplas, um completa o outro, de mãos dadas", "Um de cada vez, na roda, com voz fininha de ratinho", "Mamãe e as crianças, fazendo mímica das palavras", "O menor começa, os outros continuam, de olhos fechados", "Todos juntos, com voz fininha de ratinho", "Só as meninas, de mãos dadas", "Mamãe e as crianças, batendo o pé no ritmo", "O menor começa, os outros continuam, como locutor de rádio", "Todos juntos, pulando a cada frase", "Só os meninos, de olhos fechados", "O menor começa, os outros continuam, com voz fininha de ratinho", "Em duplas, um completa o outro, em voz bem alta (sem gritar)", "Um de cada vez, na roda, com voz de robô", "O menor começa, os outros continuam, dando uma volta em cima do tapete", "Mamãe e as crianças, levantando um dedo a cada palavra importante", "O menor começa, os outros continuam, segurando uma colher como microfone", "Só as meninas, passando uma almofada a cada frase", "Um de cada vez, na roda, batendo o pé no ritmo", "Em duplas, um completa o outro, dando uma volta em cima do tapete", "Em duplas, um completa o outro, terminando com um abraço em grupo", "Um de cada vez, na roda, em eco: um diz um pedaço, os outros repetem", "Um de cada vez, na roda, como se contasse um segredo ao vizinho", "Só os meninos, em eco: um diz um pedaço, os outros repetem", "Um de cada vez, na roda, em voz bem alta (sem gritar)", "Um de cada vez, na roda, passando uma almofada a cada frase", "Mamãe e as crianças, em voz bem alta (sem gritar)", "Todos juntos, como se contasse um segredo ao vizinho", "Mamãe e as crianças, de olhos fechados", "Mamãe e as crianças, com voz fininha de ratinho", "Papai e as crianças, com voz fininha de ratinho", "Papai e as crianças, como locutor de rádio", "Todos juntos, rapidinho, como coelho", "Papai e as crianças, em eco: um diz um pedaço, os outros repetem", "Um de cada vez, na roda, levantando um dedo a cada palavra importante", "Só os meninos, agachados e subindo devagar até o fim", "Mamãe e as crianças, com voz de gigante", "O menor começa, os outros continuam, de pé, marchando no lugar", "Só as meninas, terminando com um abraço em grupo", "Um de cada vez, na roda, pulando a cada frase", "O menor começa, os outros continuam, batucando na mesa ou numa panela", "Todos juntos, levantando um dedo a cada palavra importante", "Papai e as crianças, pulando a cada frase", "Todos juntos, como locutor de rádio", "Em duplas, um completa o outro, fazendo mímica das palavras", "O menor começa, os outros continuam, com um chapéu ou pano na cabeça", "Papai e as crianças, com um chapéu ou pano na cabeça", "Papai e as crianças, passando uma almofada a cada frase", "Papai e as crianças, segurando uma colher como microfone", "Só as meninas, segurando uma colher como microfone", "Mamãe e as crianças, sussurrando bem baixinho", "Só as meninas, de pé, marchando no lugar", "Papai e as crianças, bem devagar, como tartaruga", "Em duplas, um completa o outro, como se contasse um segredo ao vizinho", "O menor começa, os outros continuam, agachados e subindo devagar até o fim", "Todos juntos, em voz bem alta (sem gritar)", "Mamãe e as crianças, batucando na mesa ou numa panela", "Só os meninos, batendo palmas", "Só as meninas, como se contasse um segredo ao vizinho", "Só os meninos, de pé, marchando no lugar", "Todos juntos, dando uma volta em cima do tapete", "Em duplas, um completa o outro, com voz de robô", "Todos juntos, batendo palmas", "Só as meninas, agachados e subindo devagar até o fim", "Mamãe e as crianças, pulando a cada frase", "Em duplas, um completa o outro, batendo palmas", "Um de cada vez, na roda, batendo palmas", "Um de cada vez, na roda, batucando na mesa ou numa panela", "Um de cada vez, na roda, com um chapéu ou pano na cabeça", "Mamãe e as crianças, com voz de robô", "Um de cada vez, na roda, com voz de gigante", "Em duplas, um completa o outro, batendo o pé no ritmo", "Em duplas, um completa o outro, de pé, marchando no lugar", "Só as meninas, com voz de robô", "Só os meninos, sussurrando bem baixinho", "Em duplas, um completa o outro, batucando na mesa ou numa panela", "Um de cada vez, na roda, rapidinho, como coelho", "Um de cada vez, na roda, de pé, marchando no lugar", "Papai e as crianças, rapidinho, como coelho", "Só os meninos, bem devagar, como tartaruga"];
+const FAM_WEEK="2026-11-02";
+const FAM_DAY_IDX={seg:0,ter:1,qua:2,qui:3,sex:4,sab:5};
+const FAM_SLOT={catecismo:0,verse:7,hino:14}; const FAM_PER_DAY=17;
+// nº do dia de culto (seg–sáb) desde 19/10/2026, determinístico pela data; 17 formas/dia em sequência → nada se repete na semana (102<200) e o banco inteiro roda antes de repetir.
+function famDayNum(){const d=dayInfo(); const w=new Date(FAM_WEEK+"T12:00:00Z"), z=new Date("2026-10-19T12:00:00Z");
+  return Math.round((w-z)/6048e5)*6+(FAM_DAY_IDX[d.id]||0);}
+function famModeList(key){const N=FAM_MODES.length, base=famDayNum()*FAM_PER_DAY+(FAM_SLOT[key]||0), out=[];
+  for(let i=0;i<7;i++) out.push(FAM_MODES[(base+i)%N]); return out;}
+function famModesCard(key){const d=dayInfo(); if(FAM_SKIP.includes(d.id)) return "";
+  const n=((typeof _rm==="function"?_rm().reps[key]:0)||0); const L=famModeList(key);
+  return `<div class="card" style="text-align:left"><h3>🎲 Jeito de cada repetição (hoje)</h3><ol style="margin:4px 0 0 18px;padding:0">${L.map((m,i)=>`<li style="margin:3px 0;${i===n?"font-weight:800;color:var(--accent)":(i<n?"opacity:.55;text-decoration:line-through":"")}">${escapeHtml(m)}${i===n?" ← agora":""}</li>`).join("")}</ol></div>`;}
+function famHymnCard(){const d=dayInfo(); if(FAM_SKIP.includes(d.id)) return ""; const L=famModeList("hino");
+  return `<div class="card" style="text-align:left"><h3>🎲 Jeito de cantar hoje</h3><p style="margin:4px 0">Estrofe 1: ${escapeHtml(L[0])} · Estrofe 2: ${escapeHtml(L[1])} · Estrofe 3: ${escapeHtml(L[2])} · Última: todos juntos, bem alegres!</p></div>`;}
+/*/FAMMODOS*/
+</script>
+</body>
+</html>
