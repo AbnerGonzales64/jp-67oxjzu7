@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Trilha do Concílio Pastoral</title>
+<link rel="manifest" href="trilha-concilio.webmanifest">
+<link rel="icon" href="trilha-concilio-icons/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="trilha-concilio-icons/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="trilha-concilio-icons/favicon-16.png" type="image/png" sizes="16x16">
+<link rel="apple-touch-icon" href="trilha-concilio-icons/apple-touch-180.png">
+<meta name="theme-color" content="#f6f1e7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#12100e" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Trilha Concílio">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<style>
+:root{--bg:#f6f1e7;--card:#fffaf0;--ink:#2b2118;--mut:#6f6050;--acc:#8a4b0f;--line:#d9c9ad;--ok:#2f7d4f;--soft:#efe4cf;
+color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12100e;--card:#1c1815;--ink:#e7e2d8;--mut:#a89a86;--acc:#e0a050;--line:#4a3b2c;--ok:#5fbf85;--soft:#241e19;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12100e;--card:#1c1815;--ink:#e7e2d8;--mut:#a89a86;--acc:#e0a050;--line:#4a3b2c;--ok:#5fbf85;--soft:#241e19;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);font:1em/1.5 Georgia,'Times New Roman',serif;max-width:560px;margin:0 auto;padding:0 14px 90px}
+h1{font-size:18px;margin:14px 0 2px;letter-spacing:.04em;color:var(--acc)}h2{font-size:17px;margin:16px 0 6px}
+.sub{color:var(--mut);font-size:13px;margin:0 0 10px}
+.bar{height:12px;background:var(--soft);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.bar i{display:block;height:100%;background:var(--acc)}
+.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:12px}
+.blk{border:1px solid var(--line);background:var(--card);border-radius:10px;padding:8px 4px;text-align:center;font-size:12px;color:var(--mut);cursor:pointer}
+.blk b{display:block;font-size:15px;color:var(--ink)}.blk.has{border-color:var(--acc)}.blk.full{background:var(--ok);color:#fff;border-color:var(--ok)}.blk.full b{color:#fff}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px;margin:10px 0}
+details summary{cursor:pointer;font-weight:bold}
+.lab{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--acc);margin:10px 0 2px}
+.ans{background:var(--soft);border-radius:8px;padding:8px 10px;font-size:15px}
+button,select,textarea{font:inherit;color:var(--ink)}
+button{background:var(--soft);border:1px solid var(--line);border-radius:8px;padding:9px 12px;cursor:pointer;margin:4px 4px 0 0}
+button.pri{background:var(--acc);color:#fff;border-color:var(--acc)}button.done{background:var(--ok);color:#fff;border-color:var(--ok)}
+textarea{width:100%;min-height:110px;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px;font-size:13px}
+select{width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:9px}
+nav{position:fixed;left:0;right:0;bottom:0;max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+nav button{border:0;border-radius:0;margin:0;background:none;padding:14px 4px;color:var(--mut)}nav button.on{color:var(--acc);font-weight:bold}
+.msg{font-size:13px;color:var(--mut);margin-top:6px}
+mark{background:#c33;color:#fff;border-radius:3px;padding:0 2px}.bl{min-width:3ch;background:var(--card);border:1px solid var(--line);border-radius:6px;color:var(--ink);font:inherit;padding:1px 4px}input.w{width:100%;background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px;color:var(--ink);font:inherit;margin:4px 0}.ban{background:var(--soft);border:1px solid var(--acc);border-radius:10px;padding:8px 10px;margin:10px 0;font-size:14px}.tb{float:right;margin-top:10px}.tb button{padding:5px 8px}
+#pwa{padding:10px 12px}#pwa .msg{margin:6px 0 0}#pwa button{margin:0;min-height:44px}</style>
+</head>
+<body>
+<div class="tb"><button onclick="fnt(-1)">A−</button><button onclick="fnt(1)">A+</button><button onclick="tema()">🌓</button></div><h1>TRILHA DO CONCÍLIO PASTORAL</h1>
+<p class="sub">Base: Confissão de 1689, com ponte para a Declaração Doutrinária da CBB</p>
+<div id="pwa" class="card" hidden>
+<button type="button" id="pwa-btn" class="pri" hidden>Instalar</button>
+<p id="pwa-note" class="msg" aria-live="polite"></p>
+</div>
+<div id="app"></div>
+<nav id="nav"></nav>
+<script>
+var KEY='trilha_concilio_v2', MEM=null;
+var V={'2tm316':{ref:'2 Timóteo 3:16-17',t:'Toda a Escritura é inspirada por Deus e útil para o ensino, para a repreensão, para a correção, para a educação na justiça, a fim de que o homem de Deus seja perfeito e perfeitamente habilitado para toda boa obra.'},'tm16':{ref:'2 Timóteo 3:16',t:'Toda a Escritura é inspirada por Deus e útil para o ensino, para a repreensão, para a correção, para a educação na justiça,'},'hb11':{ref:'Hebreus 1:1-2',t:'Havendo Deus, outrora, falado, muitas vezes e de muitas maneiras, aos pais, pelos profetas, nestes últimos dias, nos falou pelo Filho, a quem constituiu herdeiro de todas as coisas, pelo qual também fez o universo.'},'hb1a':{ref:'Hebreus 1:1',t:'Havendo Deus, outrora, falado, muitas vezes e de muitas maneiras, aos pais, pelos profetas,'},'sl191':{ref:'Salmos 19:1',t:'Os céus proclamam a glória de Deus, e o firmamento anuncia as obras das suas mãos.'},'rm214':{ref:'Romanos 2:14-15',t:'Quando, pois, os gentios, que não têm lei, procedem, por natureza, de conformidade com a lei, não tendo lei, servem eles de lei para si mesmos. Estes mostram a norma da lei gravada no seu coração, testemunhando-lhes também a consciência e os seus pensamentos, mutuamente acusando-se ou defendendo-se.'},'2pe120':{ref:'2 Pedro 1:20-21',t:'sabendo, primeiramente, isto: que nenhuma profecia da Escritura provém de particular elucidação; porque nunca jamais qualquer profecia foi dada por vontade humana; entretanto, homens (santos) falaram da parte de Deus, movidos pelo Espírito Santo.'},'2pe21':{ref:'2 Pedro 1:21',t:'porque nunca jamais qualquer profecia foi dada por vontade humana; entretanto, homens (santos) falaram da parte de Deus, movidos pelo Espírito Santo.'},'hb412':{ref:'Hebreus 4:12',t:'Porque a palavra de Deus é viva, e eficaz, e mais cortante do que qualquer espada de dois gumes, e penetra até ao ponto de divisão entre alma e espírito, juntas e medulas, e é apta para discernir os pensamentos e propósitos do coração.'},'mt2435':{ref:'Mateus 24:35',t:'O céu e a terra passarão, porém as minhas palavras não passarão.'},'jo1717':{ref:'João 17:17',t:'Santifica-os na verdade; a tua palavra é a verdade.'},'sl119':{ref:'Salmos 119:160',t:'A tua palavra é a verdade desde o princípio, e cada um dos teus juízos retos dura para sempre.'},'rm32':{ref:'Romanos 3:2',t:'Muita, sob todos os aspectos, porque, primeiramente, lhe foram confiadas as palavras de Deus.'},'lc2444':{ref:'Lucas 24:44',t:'A seguir, Jesus lhes disse: São estas as palavras que eu vos falei, estando ainda convosco: importava se cumprisse tudo o que está escrito sobre mim na Lei de Moisés, nos Profetas e nos Salmos.'},'2pe315':{ref:'2 Pedro 3:15-16',t:'E tendes por salvação a longanimidade de nosso Senhor, como também o nosso amado irmão Paulo vos escreveu, segundo a sabedoria que lhe foi dada, falando disto, como em todas as suas epístolas, entre as quais há pontos difíceis de entender, que os indoutos e inconstantes torcem e igualmente as outras Escrituras, para a própria destruição deles.'},'2tm315':{ref:'2 Timóteo 3:15',t:'e que, desde a infância, sabes as sagradas letras, que podem tornar-te sábio para a salvação pela fé que há em Cristo Jesus.'},'rm116':{ref:'Romanos 1:16',t:'Pois não me envergonho do evangelho, porque é o poder de Deus para a salvação de todo aquele que crê, primeiro do judeu e também do grego.'},'jo2031':{ref:'João 20:31',t:'Estes, porém, foram registrados para que creiais que Jesus é o Cristo, o Filho de Deus, e para que, crendo, tenhais vida em seu nome.'}};
+var BUILTIN=[{
+ id:'m01b',ordem:1,titulo:'Bibliologia: a doutrina da Bíblia',tempo:'~3h30',
+ itens:[
+ {p:'O que é Bibliologia?',v:['2tm316'],l:'https://suno.com/s/zKQLRRVJpZlUKydz',r:'É o estudo da Bíblia: sua origem, formação, autoridade e propósito (2Tm 3:16-17). Exemplo: o pastor ensina com confiança porque conhece a natureza da Escritura.',c:'Cap. 1 da 1689, “Das Santas Escrituras”, abre toda a Confissão. Isso mostra que tudo parte da Palavra.',b:'Responda curto e com calma. Conecte a doutrina ao ministério, e não só à teoria.',ref:'2 Timóteo 3:16-17'},
+ {p:'O que é revelação? Como Deus se revelou?',v:['hb11','sl191','rm214'],l:'https://suno.com/s/6tgYR7adQZGBvLRp',r:'É Deus abrindo seu caráter e sua vontade ao homem (Hb 1:1-2). Pela criação (Sl 19:1), pela consciência (Rm 2:14-15), pelos profetas e, plenamente, por Cristo (Jo 1:18). Hoje temos essa revelação na Bíblia.',c:'1689, 1.1: a natureza e as obras da providência mostram a bondade, a sabedoria e o poder de Deus, mas não bastam para o conhecimento salvífico. Por isso Deus se revelou pela Escritura.',b:'Distinga revelação geral e especial sem desprezar quem tem outra ênfase. Foque em Cristo.',ref:'Hebreus 1:1-2; Salmo 19:1; Romanos 2:14-15'},
+ {p:'O que é inspiração?',v:['2pe120','tm16'],l:'https://suno.com/s/ZwiANRjaBejrRirx',r:'É a ação do Espírito Santo guiando autores humanos para escreverem o que Deus queria (2Pe 1:20-21). A autoridade do púlpito não é do pregador, mas da Palavra inspirada.',c:'1689, 1.2: a Escritura é dada por inspiração de Deus para ser a regra de fé e vida.',b:'Se a banca usar termos técnicos (plenária, verbal), explique com suas palavras e não finja domínio do que não domina.',ref:'2 Pedro 1:20-21; 2 Timóteo 3:16'},
+ {p:'A Bíblia é, contém ou se torna a Palavra de Deus?',v:['hb412','mt2435'],l:'https://suno.com/s/6zdFaeyOQKD02IlO',r:'A Bíblia é a Palavra de Deus (Hb 4:12; Mt 24:35). Ela não depende de emoção ou experiência do leitor para ser verdadeira.',c:'1689, 1.4: a autoridade da Escritura depende de Deus, seu autor, e não do testemunho de homens.',b:'Responda sem atacar outras posições. Afirme com mansidão e mostre que isso protege o pregador, e não o engessa.',ref:'Hebreus 4:12; Mateus 24:35'},
+ {p:'A Bíblia é infalível e suficiente?',v:['jo1717','sl119','2tm316'],l:'https://suno.com/s/OGA8ahNHbPypwlCB',r:'Sim. Ela é verdadeira e sem erro naquilo que afirma (Jo 17:17; Sl 119:160) e suficiente para a fé e a vida (2Tm 3:16-17). Não precisamos acrescentar nada à revelação.',c:'1689, 1.1 e 1.6: regra suficiente, certa e infalível. Todo o conselho de Deus está na Escritura ou dela se deduz por boa consequência.',b:'Mostre que suficiência não despreza a erudição nem os pastores mais velhos: ela os coloca sob a Palavra.',ref:'João 17:17; Salmo 119:160; 2 Timóteo 3:16-17'},
+ {p:'Como a Bíblia foi formada? O que é o cânon?',v:['rm32','lc2444','2pe315'],l:'https://suno.com/s/nv7Hffqg0P6ayxbm',r:'O AT foi reconhecido pelos judeus (Rm 3:2; Lc 24:44) e o NT pela Igreja apostólica (2Pe 3:15-16). São 66 livros. A Igreja reconheceu o cânon, e não o criou.',c:'1689, 1.2: lista os livros do AT e do NT como regra de fé e vida.',b:'Use o verbo “reconheceu”, não “escolheu”. Isso evita parecer que a autoridade vem da Igreja.',ref:'Lucas 24:44; Romanos 3:2; 2 Pedro 3:15-16'},
+ {p:'Por que rejeitamos os livros apócrifos?',v:['rm32','lc2444'],l:'https://suno.com/s/WcqSNqaEeofSlZVc',r:'Porque não foram reconhecidos pelos judeus nem por Cristo (Lc 24:44). Podem ter valor histórico, mas não têm autoridade para a fé.',c:'1689, 1.3: os apócrifos não são inspirados e não fazem parte do cânon.',b:'Responda a dúvida “por que minha Bíblia é diferente da católica?” com respeito, sem tom de superioridade.',ref:'Lucas 24:44; Romanos 3:2'},
+ {p:'Quem escreveu a Bíblia e em que línguas?',v:['hb1a','2pe21'],l:'https://suno.com/s/EDZgdB9eeOwT8V6F',r:'Cerca de 40 autores, ao longo de uns 1.500 anos, inspirados por Deus (Hb 1:1). Foi escrita em hebraico, aramaico e grego (coiné). A unidade da mensagem aponta para um só Autor.',c:'1689, 1.8: o AT em hebraico e o NT em grego, e a Escritura deve ser traduzida para a língua do povo.',b:'Valorize o estudo do original sem desprezar as boas traduções. Isso mostra equilíbrio.',ref:'Hebreus 1:1; 2 Pedro 1:21'},
+ {p:'Quais são as divisões da Bíblia e o que é o período interbíblico?',v:['lc2444','2tm315','tm16'],l:'https://suno.com/s/sBtZEBRgF3kfiBMJ',r:'AT: Lei, História, Poesia e Profetas. NT: Evangelhos, Atos, Epístolas e Apocalipse (Lc 24:44). Entre Malaquias e João Batista há cerca de 400 anos, que ajudam a entender os fariseus e a expectativa messiânica. Capítulos: Stephen Langton (séc. XIII); versículos: Robert Estienne (séc. XVI).',c:'1689, 1.2: a Confissão reconhece a Escritura em AT e NT como um conjunto.',b:'Pergunta de conhecimento geral: responda com objetividade e sem se alongar.',ref:'Lucas 24:44; 2 Timóteo 3:15-17'},
+ {p:'O que é o Evangelho e quem são os Sinópticos?',v:['rm116','jo2031'],l:'https://suno.com/s/zij47NlpHfZjuKCK',r:'Evangelho significa “boas novas” (Rm 1:16). Mateus, Marcos e Lucas são os Sinópticos, de estrutura semelhante. João é mais teológico e evangelístico (Jo 20:31). A mensagem do pastor não é motivacional, é o Evangelho.',c:'Os Evangelhos são Escritura e, como tal, regra de fé (1689, 1.1).',b:'Termine voltando ao centro: Cristo e a sua obra. Isso demonstra maturidade pastoral.',ref:'Romanos 1:16; João 20:31'}
+ ]}];
+
+function esc(s){return String(s).replace(/[&<>"']/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function load(){try{var t=localStorage.getItem(KEY);if(t)return JSON.parse(t)}catch(e){}return MEM||{}}
+var S=load();['done','mods','rd','need','mu','pp'].forEach(function(k){S[k]=S[k]||{}});S.fs=S.fs||16;S.th=S.th||'auto';
+function save(){MEM=S;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function look(){document.documentElement.style.fontSize=S.fs+'px';if(S.th==='auto')document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',S.th)}
+function fnt(d){S.fs=Math.max(14,Math.min(22,S.fs+d));save();look()}
+function tema(){S.th={auto:'light',light:'dark',dark:'auto'}[S.th];save();look()}
+function pc(x){return x.toFixed(1).replace('.',',')}
+function allMods(){var m=BUILTIN.slice();for(var k in S.mods)if(!BUILTIN.some(function(b){return b.id===k}))m.push(S.mods[k]);return m.sort(function(a,b){return a.ordem-b.ordem})}
+function getMod(id){return allMods().filter(function(m){return m.id===id})[0]}
+function vs(it){return (it.v||[]).map(function(x){return typeof x==='string'?V[x]:x}).filter(Boolean)}
+function passed(m,i){return (S.done[m.id]||[]).indexOf(i)>-1}
+function unl(m,i){return i===0||passed(m,i-1)}
+function modPct(m){var d=(S.done[m.id]||[]).filter(function(i){return i<m.itens.length}).length;return 5*d/m.itens.length}
+function total(){return allMods().reduce(function(a,m){return a+modPct(m)},0)}
+function norm(s){return String(s).replace(/\s+/g,' ').trim()}
+function lev(a,b){var m=a.length,n=b.length,p=[],i,j;for(j=0;j<=n;j++)p[j]=j;for(i=1;i<=m;i++){var c=[i];for(j=1;j<=n;j++)c[j]=Math.min(p[j]+1,c[j-1]+1,p[j-1]+(a[i-1]===b[j-1]?0:1));p=c}return p[n]}
+function nz(s){return String(s).toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^\p{L}\p{N}]+/gu,' ').trim()}
+function sim(a,b){a=nz(a);b=nz(b);var L=Math.max(a.length,b.length);return L?100*(1-lev(a,b)/L):100}
+function parts(it){var a=[{lab:'Pergunta',t:it.p},{lab:'Resposta',t:it.r}];vs(it).forEach(function(v,i){a.push({lab:'Versículo '+(i+1),ref:v.ref,t:v.t})});return a}
+function score(p,a){return p.ref?0.2*sim(a.r||'',p.ref)+0.8*sim(a.t||'',p.t):sim(a.t||'',p.t)}
+function marks(u,e){var w={};nz(e).split(' ').forEach(function(x){w[x]=1});return norm(u).split(' ').map(function(x){var n=nz(x);return !n||w[n]||n.split(' ').every(function(y){return w[y]})?esc(x):'<mark>'+esc(x)+'</mark>'}).join(' ')}
+var SW='porque entretanto primeiramente sabendo nenhuma nunca jamais qualquer também mutuamente todas todos aquele desde segundo entre sobre estando ainda convosco muitas maneiras'.split(' ');
+function cloze(t){var rx=/^([^\p{L}\p{N}]*)([\p{L}\p{N}-]+)(.*)$/u,w=t.split(' ').map(function(x){var m=rx.exec(x);return m?{a:m[1],c:m[2],z:m[3]}:{a:x,c:'',z:''}}),pick={};
+ w.map(function(o,i){return {i:i,l:o.c.length,ok:o.c.length>=6&&SW.indexOf(o.c.toLowerCase())<0}}).filter(function(o){return o.ok}).sort(function(a,b){return b.l-a.l}).slice(0,Math.max(1,Math.round(w.length*0.3))).forEach(function(o){pick[o.i]=1});
+ return w.map(function(o,i){return pick[i]?esc(o.a)+'<input class="bl" data-a="'+esc(o.c)+'" size="'+Math.max(3,o.c.length)+'">'+esc(o.z):esc(o.a+o.c+o.z)}).join(' ')}
+var tab='trilha',cur='m01b',C=null,T=null,R=null,msg='';
+function key(){return C.m+':'+C.i}
+function vTrilha(){
+ var t=total(),mods=allMods(),h='<h2>Progresso total: '+pc(t)+'%</h2><div class="bar"><i style="width:'+t+'%"></i></div>';
+ if(mods.some(function(m){return modPct(m)>=5})&&S.expSig!==JSON.stringify(S.done))h+='<div class="ban">Você avançou desde o último backup. Vá em Dados e exporte o progresso.</div>';
+ h+='<p class="sub">20 blocos de 5%. Toque em um bloco liberado.</p><div class="grid">';
+ for(var n=1;n<=20;n++){var m=mods.filter(function(x){return x.ordem===n})[0];
+  if(m){var p=modPct(m);h+='<div class="blk '+(p>=5?'full':p>0?'has':'')+'" onclick="cur=\''+esc(m.id)+'\';S.tp=m_fase(\''+esc(m.id)+'\');C=null;go(\'est\')"><b>'+n+'</b>'+pc(p)+'%</div>'}
+  else h+='<div class="blk" style="opacity:.45"><b>'+n+'</b>🔒 0%</div>'}
+ return h+'</div>'}
+function m_fase(id){return getMod(id).fase||'g'}
+function vEst(){
+ var tp=S.tp||'g',seg=[['g','Gramática'],['l','Lógica'],['r','Retórica']].map(function(x){return '<button class="'+(tp===x[0]?'pri':'')+'" onclick="S.tp=\''+x[0]+'\';render()">'+x[1]+'</button>'}).join('');
+ var ms=allMods().filter(function(m){return (m.fase||'g')===tp}),h='<h2>Estudar</h2>'+seg;
+ if(!ms.length)return h+'<p class="sub">Os módulos desta fase chegam como arquivos. Importe em Dados.</p>';
+ var m=ms.filter(function(x){return x.id===cur})[0]||ms[0];cur=m.id;
+ h+='<select onchange="cur=this.value;render()">'+ms.map(function(x){return '<option value="'+esc(x.id)+'"'+(x.id===cur?' selected':'')+'>Módulo '+x.ordem+' - '+esc(x.titulo)+'</option>'}).join('')+'</select><p class="sub">'+(m.tempo?'Tempo: '+esc(m.tempo)+'. ':'')+pc(modPct(m))+'% de 5%. Passar no teste libera o próximo cartão.</p>';
+ m.itens.forEach(function(it,i){var u=unl(m,i),ok=passed(m,i);h+='<div class="card" '+(u?'onclick="C={m:\''+esc(m.id)+'\',i:'+i+'};T=null;render()" style="cursor:pointer"':'style="opacity:.5"')+'>'+(ok?'✅':u?'▶️':'🔒')+' '+esc(it.p)+'</div>'});
+ return h}
+function vCard(){
+ var m=getMod(C.m),it=m.itens[C.i],k=key(),need=S.need[k],ok=!need||S.rd[k]>=5||S.mu[k];
+ var h='<button onclick="C=null;render()">← Voltar</button><h2>'+esc(it.p)+'</h2><div class="lab">Resposta</div><div class="ans">'+esc(it.r)+'</div>'+(it.c?'<div class="lab">Base na 1689</div><div class="ans">'+esc(it.c)+'</div>':'')+(it.b?'<div class="lab">Ponte e postura</div><div class="ans">'+esc(it.b)+'</div>':'');
+ vs(it).forEach(function(v){h+='<div class="lab">'+esc(v.ref)+'</div><div class="ans">'+esc(v.t)+'</div>'});
+ if(it.l&&/^https:\/\//.test(it.l))h+='<div class="lab">Música</div><a style="color:var(--acc)" href="'+esc(it.l)+'" target="_blank" rel="noopener" onclick="S.mu[\''+k+'\']=1;save()">🎵 Ouvir (precisa de internet)</a>';
+ h+='<p><button onclick="falar()">🔊 Ler em voz alta</button><button onclick="lido()">Li o cartão'+(need?' ('+(S.rd[k]||0)+'/5)':'')+'</button></p>';
+ if(!ok)h+='<p class="msg">Para tentar de novo: ouça a música ou releia o cartão 5 vezes.</p>';
+ return h+'<button class="pri" '+(ok?'':'disabled style="opacity:.5"')+' onclick="iniciar()">'+(passed(m,C.i)?'Refazer o teste':(S.pp[k]?'Continuar o teste':'Iniciar o teste'))+'</button>'}
+function lido(){var k=key();S.rd[k]=(S.rd[k]||0)+1;save();render()}
+function falar(){try{var it=getMod(C.m).itens[C.i],u=new SpeechSynthesisUtterance(it.p+'. '+it.r);u.lang='pt-BR';speechSynthesis.cancel();speechSynthesis.speak(u)}catch(e){}}
+function vTest(){
+ var m=getMod(C.m),it=m.itens[C.i],P=parts(it),h='<h2>Teste</h2>';
+ if(T.step==='lac'){
+  h+='<p class="sub">Degrau 1: preencha as lacunas (treino, sem nota).</p>';
+  P.forEach(function(p){h+='<div class="card"><div class="lab">'+p.lab+(p.ref?' - '+esc(p.ref):'')+'</div>'+cloze(p.t)+'</div>'});
+  return h+'<button onclick="chk()">Conferir</button><span class="msg" id="lz"></span><br><button class="pri" onclick="T.step=\'tst\';T.n=S.pp[key()]||0;T.log=[];render()">Ir para o teste</button>'}
+ if(T.step==='tst'){var p=P[T.n];
+  return h+'<p class="sub">Parte '+(T.n+1)+' de '+P.length+'. Mínimo de 90%; pontuação, maiúsculas e acentos não contam.'+(T.ok?' Parte anterior aprovada ('+pc(T.ok)+'%).':'')+'</p><div class="lab">'+p.lab+'</div>'+(p.ref?'<input class="w" id="x_r" placeholder="Referência">':'')+'<textarea id="x_t"></textarea><button class="pri" onclick="conf()">Corrigir esta parte</button>'}
+ if(T.step==='cor'){var q=P[T.n],a=T.a;
+  return h+'<p class="sub">Nota '+pc(T.s)+'% (precisa de 90%). Palavras marcadas diferem do cartão. Corrija erros de digitação; há uma só rodada.</p><div class="lab">'+q.lab+'</div>'+(q.ref?'<input class="w" id="x_r" value="'+esc(a.r)+'">':'')+'<div class="ans">'+marks(a.t,q.t)+'</div><textarea id="x_t">'+esc(a.t)+'</textarea><button class="pri" onclick="corrigir()">Enviar correção</button>'}
+ if(T.step==='blq')return h+'<h2>Parte não aprovada ✋</h2><p>Você parou na parte '+(T.n+1)+' de '+P.length+'. Seu avanço está salvo.</p><p class="msg">Acordo: reler o cartão completo 5 vezes (ou ouvir a música) antes de tentar de novo.</p><button class="pri" onclick="T=null;render()">Voltar ao cartão</button>';
+ h+='<h2>Cartão aprovado ✅</h2><p>Todas as partes passaram com 90% ou mais.</p>';
+ var er=T.log.filter(function(l){return l.s1<100});
+ if(!er.length)h+='<p>Sem erros nesta rodada.</p>';
+ er.forEach(function(l){h+='<div class="card"><div class="lab">'+l.lab+': '+pc(l.s1)+'% na 1ª tentativa</div><div class="ans">'+marks(l.t,l.e)+'</div><div class="lab">Texto certo</div><div class="ans">'+esc(l.e)+'</div></div>'});
+ var nx=C.i+1<m.itens.length;
+ return h+'<button class="pri" onclick="T=null;'+(nx?'C.i++;':'')+'render()">'+(nx?'Próximo cartão':'Voltar')+'</button>'}
+function chk(){var el=document.querySelectorAll('.bl'),ok=0;el.forEach(function(e){var g=e.value.trim()===e.dataset.a;if(g)ok++;e.style.borderColor=g?'var(--ok)':'#c33'});document.getElementById('lz').textContent=' '+ok+' de '+el.length+' lacunas certas'}
+function ev(){var P=parts(getMod(C.m).itens[C.i]),p=P[T.n],r=document.getElementById('x_r');T.a={r:r?r.value:'',t:document.getElementById('x_t').value};T.s=score(p,T.a);T.lt=(p.ref?T.a.r+' ':'')+T.a.t;T.le=(p.ref?p.ref+' ':'')+p.t;return P}
+function next(P){var k=key();T.log.push({lab:P[T.n].lab,t:T.f,e:T.le,s1:T.s1});T.ok=T.s;T.n++;S.pp[k]=T.n;
+ if(T.n>=P.length){var m=getMod(C.m),d=S.done[m.id]||[];if(d.indexOf(C.i)<0)d.push(C.i);S.done[m.id]=d;delete S.pp[k];delete S.need[k];T.step='fim'}else T.step='tst';
+ save();render()}
+function conf(){var P=ev();T.s1=T.s;T.f=T.lt;if(T.s>=90)next(P);else{T.step='cor';render()}}
+function corrigir(){var P=ev();if(T.s>=90)next(P);else{var k=key();S.need[k]=1;S.rd[k]=0;S.mu[k]=0;T.step='blq';save();render()}}
+function iniciar(){var k=key();if(S.need[k]){delete S.need[k];S.rd[k]=0;S.mu[k]=0}if(passed(getMod(C.m),C.i))S.pp[k]=0;T={step:'lac',n:0,a:{},log:[]};save();render()}
+function vTrn(){
+ if(!R)return '<h2>Treino e simulado</h2><p class="sub">5 perguntas sorteadas, 90 segundos cada. Responda em voz alta e depois confira.</p><label><input type="checkbox" id="ro"> só cartões ainda não aprovados</label><br><button class="pri" onclick="iniR()">Começar</button>';
+ if(R.i>=R.q.length)return '<h2>Resultado</h2><p>Você acertou '+R.ok+' de '+R.q.length+'.</p><button class="pri" onclick="R=null;render()">Novo treino</button>';
+ var it=R.q[R.i];
+ return '<h2>Pergunta '+(R.i+1)+'/'+R.q.length+'</h2><p class="sub">Tempo: <b id="tm">'+R.t+'</b>s</p><div class="card"><b>'+esc(it.p)+'</b></div>'+(R.sh?'<div class="ans">'+esc(it.r)+'</div><button class="pri" onclick="resp(1)">Acertei</button><button onclick="resp(0)">Errei</button>':'<button class="pri" onclick="R.sh=1;clearInterval(R.iv);render()">Mostrar resposta</button>')}
+function startT(){clearInterval(R.iv);R.t=90;R.iv=setInterval(function(){R.t--;var e=document.getElementById('tm');if(e)e.textContent=R.t;if(R.t<=0)clearInterval(R.iv)},1000)}
+function iniR(){var only=document.getElementById('ro').checked,pool=[];allMods().forEach(function(m){m.itens.forEach(function(it,i){if(!only||!passed(m,i))pool.push(it)})});pool.sort(function(){return Math.random()-.5});if(!pool.length)return;R={q:pool.slice(0,5),i:0,sh:0,ok:0,t:90};startT();render()}
+function resp(g){R.ok+=g;R.i++;R.sh=0;if(R.i<R.q.length)startT();render()}
+function vDados(){
+ return '<h2>Backup e módulos</h2><p class="sub">Exporte seu progresso e guarde o arquivo. Para retomar ou adicionar um módulo, importe o arquivo ou cole o texto.</p><button class="pri" onclick="exportar()">Exportar progresso</button><button onclick="document.getElementById(\'f\').click()">Importar arquivo</button><input type="file" id="f" accept=".json,.txt,application/json" multiple style="display:none" onchange="lerArquivos(this.files)"><textarea id="ta" placeholder="O backup aparece aqui para copiar. Para importar, cole o texto de um backup ou módulo e toque em Importar texto."></textarea><button onclick="importText(document.getElementById(\'ta\').value)">Importar texto</button><div class="msg" id="msg">'+esc(msg)+'</div><h2>Módulos instalados</h2>'+allMods().map(function(m){return '<div class="card">Módulo '+m.ordem+': '+esc(m.titulo)+'<br><span class="sub">'+m.itens.length+' cartões, '+pc(modPct(m))+'% de 5%</span></div>'}).join('')}
+function render(){
+ if(R&&tab!=='trn'){clearInterval(R.iv);R=null}
+ var h=tab==='trilha'?vTrilha():tab==='est'?(C?(T?vTest():vCard()):vEst()):tab==='trn'?vTrn():vDados();
+ document.getElementById('app').innerHTML=h;
+ document.getElementById('nav').innerHTML=[['trilha','📜 Trilha'],['est','📖 Estudar'],['trn','⏱️ Treino'],['dad','💾 Dados']].map(function(x){return '<button class="'+(tab===x[0]?'on':'')+'" onclick="go(\''+x[0]+'\')">'+x[1]+'</button>'}).join('')}
+function go(t){tab=t;if(t!=='est'){C=null;T=null}render();window.scrollTo(0,0)}
+function exportar(){
+ var txt=JSON.stringify({v:2,done:S.done,mods:S.mods});S.expSig=JSON.stringify(S.done);save();
+ go('dad');document.getElementById('ta').value=txt;
+ try{var b=new Blob([txt],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='progresso-concilio.json';document.body.appendChild(a);a.click();a.remove();msg='Tentei baixar o arquivo. Se nada baixar, copie o texto acima e guarde em uma nota.'}catch(e){msg='Copie o texto acima e guarde em uma nota.'}
+ document.getElementById('msg').textContent=msg}
+function validMod(o){return o&&typeof o.id==='string'&&/^[\w-]{1,40}$/.test(o.id)&&Number.isInteger(o.ordem)&&o.ordem>=1&&o.ordem<=20&&typeof o.titulo==='string'&&Array.isArray(o.itens)&&o.itens.length>0&&o.itens.every(function(i){return i&&typeof i.p==='string'&&typeof i.r==='string'})}
+function importText(t){
+ var o;try{o=JSON.parse(t)}catch(e){return say('Texto inválido. Cole o conteúdo completo do arquivo.')}
+ if(validMod(o)){S.mods[o.id]=o;save();return say('Módulo '+o.ordem+' adicionado.')}
+ if(o&&o.done&&typeof o.done==='object'){var n=0;for(var k in o.done){if(Array.isArray(o.done[k])){S.done[k]=o.done[k];n++}}
+  if(o.mods)for(var j in o.mods)if(validMod(o.mods[j]))S.mods[j]=o.mods[j];
+  save();return say('Progresso importado ('+n+' módulos).')}
+ say('Formato não reconhecido.')}
+function say(m){msg=m;render()}
+function lerArquivos(fl){Array.prototype.forEach.call(fl,function(f){var r=new FileReader();r.onload=function(){importText(r.result)};r.readAsText(f)})}
+look();render();
+</script>
+<script>
+(function(){
+var box=document.getElementById('pwa'),btn=document.getElementById('pwa-btn'),note=document.getElementById('pwa-note'),deferred=null;
+function standalone(){return window.matchMedia('(display-mode: standalone)').matches||window.navigator.standalone===true}
+function ios(){var ua=navigator.userAgent||'';if(/iphone|ipad|ipod/i.test(ua))return true;return navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1&&!window.chrome}
+function show(text,withButton){box.hidden=false;note.textContent=text||'';btn.hidden=!withButton;if(!withButton)btn.disabled=false}
+if(standalone())show('Aberto pelo atalho instalado.',false);
+else{
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferred=e;show('O navegador pede confirmação. Nem todo aparelho mostra este botão.',true)});
+window.addEventListener('appinstalled',function(){deferred=null;show('Instalação confirmada neste navegador.',false)});
+if(ios())show('No iPhone ou iPad: Compartilhar > Adicionar à Tela de Início. Não há pedido automático de instalação.',false);
+else window.addEventListener('load',function(){setTimeout(function(){if(!deferred)show('Este navegador não ofereceu instalação automática. Se o menu tiver essa opção, use Instalar aplicativo ou Adicionar à tela de início.',false)},1200)});
+}
+btn.addEventListener('click',function(){if(!deferred)return;var ev=deferred;deferred=null;btn.disabled=true;ev.prompt();ev.userChoice.then(function(c){if(c&&c.outcome==='accepted')show('Instalação confirmada neste navegador.',false);else show('Instalação não confirmada.',false)}).catch(function(){show('Este navegador não abriu o pedido de instalação.',false)})});
+if('serviceWorker' in navigator){
+var sw=new URL('trilha-concilio-sw.js',document.baseURI).href,page=new URL('trilha-concilio-2026-11-07.html',document.baseURI).href;
+navigator.serviceWorker.register(sw,{scope:page,updateViaCache:'none'}).catch(function(err){console.warn('escopo da página recusado',err&&err.message);return navigator.serviceWorker.register(sw,{updateViaCache:'none'})});
+}
+})();
+</script>
+</body>
+</html>
