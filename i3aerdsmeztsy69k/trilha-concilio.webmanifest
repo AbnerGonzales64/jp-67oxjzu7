@@ -1,0 +1,39 @@
+{
+  "name": "Trilha do Concílio Pastoral",
+  "short_name": "Trilha Concílio",
+  "description": "Estudo pastoral da Confissão de 1689, nesta página.",
+  "id": "trilha-concilio-2026-11-07.html",
+  "start_url": "trilha-concilio-2026-11-07.html",
+  "scope": "trilha-concilio-2026-11-07.html",
+  "display": "standalone",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "background_color": "#f6f1e7",
+  "theme_color": "#8a4b0f",
+  "icons": [
+    {
+      "src": "trilha-concilio-icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "trilha-concilio-icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "trilha-concilio-icons/icon-maskable-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "trilha-concilio-icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

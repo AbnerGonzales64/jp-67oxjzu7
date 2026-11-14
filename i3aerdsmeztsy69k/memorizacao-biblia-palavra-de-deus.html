@@ -1,0 +1,64 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex"><meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"><meta http-equiv="Pragma" content="no-cache"><meta http-equiv="Expires" content="0">
+<title>Memorização · A Bíblia é a Palavra de Deus</title><style>
+:root{--accent:#2a6df5;--bg:#f7f7f4;--card:#fff;--border:#ddd;--text:#1d2430;--muted:#667;--good:#1f8a5a;--bad:#c0392b;--warn:#b7791f}
+body{background:var(--bg);color:var(--text);font:18px/1.5 system-ui,sans-serif;margin:0 auto;padding:14px;max-width:720px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:14px;margin:12px 0}
+h1{font-size:21px;margin:4px 0}h2{font-size:18px;color:var(--accent);margin:0 0 6px}.hint{color:var(--muted);font-size:15px}
+button{background:var(--accent);color:#fff;border:0;border-radius:10px;padding:12px 16px;font-size:16px;margin:6px 4px 0 0;min-height:44px}
+button.sec{background:#e8ecf5;color:var(--text)}button:disabled{opacity:.5}
+textarea{width:100%;box-sizing:border-box;border:1px solid var(--border);border-radius:8px;font-size:17px;padding:8px;min-height:110px}
+audio{width:100%;margin:6px 0}.cnt{font-weight:700}.ok{color:var(--good)}.bad{color:var(--bad);text-decoration:line-through}.miss{color:var(--warn);font-weight:700}
+.locked{opacity:.5}.full{border-left:3px solid var(--accent);padding-left:8px;margin-top:8px}
+</style></head><body>
+<h1>Memorização · A Bíblia é a Palavra de Deus</h1>
+<div class="card"><p style="margin:0">Em cada bloco, leia o texto e toque play: o trecho toca <b>7 vezes</b> e para. Depois escreva de memória e confira. Tudo o que você escreve fica salvo neste aparelho.</p></div>
+<div id="items"></div>
+<div class="card"><h2>Seus textos</h2>
+<button onclick="copiar()">Copiar o que escrevi</button>
+<p id="msg" class="hint"></p></div>
+<script>
+const KEY="memorizacao-biblia-palavra-de-deus",REPS=7;
+const ITEMS=[
+  {id:"pergunta",titulo:"Pergunta",audio:"audio-voz/musica-biblia-palavra/01-pergunta.mp3",
+   texto:"A Bíblia é, contém ou se torna a Palavra de Deus?"},
+  {id:"resposta",titulo:"Resposta",audio:"audio-voz/musica-biblia-palavra/02-resposta.mp3",
+   texto:"A Bíblia é a Palavra de Deus, Hebreus 4:12; Mateus 24:35. Ela não depende de emoção ou experiência do leitor para ser verdadeira."},
+  {id:"heb412",titulo:"Hebreus 4:12 (ARA)",audio:"audio-voz/musica-biblia-palavra/03-hebreus-4-12.mp3",
+   texto:"Hebreus 4:12 — Porque a palavra de Deus é viva, e eficaz, e mais cortante do que qualquer espada de dois gumes, e penetra até ao ponto de divisão entre alma e espírito, juntas e medulas, e é apta para discernir os pensamentos e propósitos do coração."},
+  {id:"mt2435",titulo:"Mateus 24:35 (ARA)",audio:"audio-voz/musica-biblia-palavra/04-mateus-24-35.mp3",
+   texto:"Mateus 24:35 — O céu e a terra passarão, porém as minhas palavras não passarão."}
+];
+let S=JSON.parse(localStorage.getItem(KEY)||"{}");S.n=S.n||{};S.w=S.w||{};S.pct=S.pct||{};
+const save=()=>localStorage.setItem(KEY,JSON.stringify(S));
+const esc=s=>String(s).replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"})[c]);
+const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9α-ω\s]/g," ").split(/\s+/).filter(Boolean);
+function corrige(ref,got){const a=norm(ref),b=norm(got),m=a.length,n=b.length,L=[...Array(m+1)].map(()=>new Array(n+1).fill(0));
+ for(let i=m-1;i>=0;i--)for(let j=n-1;j>=0;j--)L[i][j]=a[i]===b[j]?L[i+1][j+1]+1:Math.max(L[i+1][j],L[i][j+1]);
+ let i=0,j=0,h=[];while(i<m||j<n){if(i<m&&j<n&&a[i]===b[j]){h.push('<span class="ok">'+a[i]+'</span>');i++;j++;}else if(j<n&&(i>=m||L[i][j+1]>=L[i+1][j])){h.push('<span class="bad">'+esc(b[j])+'</span>');j++;}else{h.push('<span class="miss">['+a[i]+']</span>');i++;}}
+ return [m?Math.round(100*L[0][0]/m):0,h.join(" ")];}
+function itemHTML(it){const r=REPS,n=S.n[it.id]||0,open=n>=r;
+ return `<div class="card" id="c-${it.id}"><h2>${esc(it.titulo)}</h2>
+ <p class="full">${esc(it.texto)}</p>
+ <audio id="a-${it.id}" controls preload="none" playsinline src="${it.audio}"></audio>
+ <div class="cnt" id="n-${it.id}">${open?"Pronto: "+r+" de "+r+" ✓":"Toque play: o áudio repete sozinho · "+n+"/"+r}</div>
+ <div id="w-${it.id}" ${open?"":'class="locked"'}><p class="hint">${open?"Agora escreva de memória, sem olhar:":"A caixa abre depois das "+r+" vezes."}</p>
+ <textarea id="t-${it.id}" ${open?"":"disabled"} oninput="S.w['${it.id}']=this.value;save()">${esc(S.w[it.id]||"")}</textarea>
+ <button ${open?"":"disabled"} onclick="conferir('${it.id}')">Conferir com o texto completo</button><div id="r-${it.id}"></div></div></div>`;}
+function conferir(id){const it=ITEMS.find(x=>x.id===id),[p,h]=corrige(it.texto,S.w[id]||"");S.pct[id]=p;save();
+ document.getElementById("r-"+id).innerHTML=`<p><b>${p}%</b> das palavras do texto completo${p>=90?' · parte dominada ✓':' · abaixo de 90%'}. <span class="ok">verde</span> certo · <span class="miss">[amarelo]</span> faltou · <span class="bad">vermelho</span> sobrou/errado</p><p>${h}</p><p class="full"><b>Texto completo:</b> ${esc(it.texto)}</p>`;}
+function liga(it){const a=document.getElementById("a-"+it.id),lb=document.getElementById("n-"+it.id);
+ a.addEventListener("error",()=>{lb.innerHTML='O áudio não carregou. <a href="#">Tentar de novo</a>';lb.querySelector("a").onclick=e=>{e.preventDefault();a.load();a.play();};});
+ a.addEventListener("play",()=>document.querySelectorAll("audio").forEach(o=>{if(o!==a)o.pause()}));
+ a.addEventListener("ended",()=>{const r=REPS;S.n[it.id]=Math.min(r,(S.n[it.id]||0)+1);save();const n=S.n[it.id];
+  if(n<r){lb.textContent="Tocando de novo · "+n+"/"+r;a.currentTime=0;a.play();}else{render();const t=document.getElementById("t-"+it.id);if(t)t.focus();}});}
+function soltaAudios(){document.querySelectorAll("#items audio").forEach(o=>{try{o.pause();o.removeAttribute("src");o.load();}catch(e){}});}
+function render(){soltaAudios();
+ document.getElementById("items").innerHTML=ITEMS.map(itemHTML).join("");
+ ITEMS.forEach(liga);
+ ITEMS.forEach(it=>{if(S.pct[it.id]!=null&&(S.n[it.id]||0)>=REPS)conferir(it.id)});}
+function resumo(){const L=["Memorização: A Bíblia é a Palavra de Deus",""];
+ ITEMS.forEach(it=>L.push("- "+it.titulo+": "+(S.n[it.id]||0)+"/"+REPS+" · escrita "+(S.pct[it.id]!=null?S.pct[it.id]+"%":"não feita")+"\n  ESCREVI: "+(S.w[it.id]||"(vazio)")));
+ return L.join("\n");}
+function copiar(){const t=resumo();(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{document.getElementById("msg").textContent="Copiado ✓";},()=>{prompt("Copie:",t)});}
+render();
+</script></body></html>
